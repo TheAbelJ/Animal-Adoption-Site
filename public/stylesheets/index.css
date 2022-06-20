@@ -1,0 +1,106 @@
+#navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 7.5vh;
+  max-height: 10vh;
+  background-color: #4361EE;
+}
+#navbar .nav-links {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+}
+#navbar .nav-links li {
+  list-style: none;
+}
+#navbar .nav-links li a {
+  text-decoration: none;
+  color: rgb(226, 226, 226);
+}
+#navbar .burger {
+  display: none;
+  cursor: pointer;
+}
+#navbar .burger div {
+  width: 32px;
+  height: 3.2px;
+  background-color: rgb(226, 226, 226);
+  margin: 5px;
+}
+
+@media screen and (max-width: 992px) {
+  #navbar .nav-links {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  #navbar {
+    justify-content: flex-end;
+  }
+  #navbar .nav-links {
+    position: absolute;
+    right: 0px;
+    height: 92vh;
+    top: 6.5vh;
+    background-color: #4361EE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    transform: translateX(100%); /* push menu to left of screen. overflow x to cut from view */
+  }
+  #navbar .nav-links li {
+    opacity: 0%;
+  }
+  #navbar .burger {
+    transform: translateX(-80%);
+    display: block;
+  }
+  #navbar .burger div {
+    transition: all 0.3s ease;
+  }
+  #navbar .nav-active {
+    transform: translateX(0%); /* When burger button is clicked */
+  }
+}
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.toggle .line2 {
+  opacity: 0;
+}
+
+.toggle .line3 {
+  transform: rotate(45deg) translate(-6px, -6px);
+}
+
+.navTransition {
+  transition: transform 0.3s ease-in;
+}
+
+footer {
+  display: none;
+}
+
+/* index.scss by forwards all files from components folder. index.scss is by default and no need to specify during @use */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: arial;
+}
