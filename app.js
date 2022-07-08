@@ -11,7 +11,7 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 
 /* Requiring Models */
-const Animals = require('./models/animals');
+const Animals = require('./models/pets');
 const Dogs = require('./models/dogs');
 const Cats = require('./models/cats')
 
@@ -35,7 +35,7 @@ app.set('views', path.join(__dirname, 'views'))             /* set the views fol
 app.use(express.urlencoded({ extended: true }));            /* used to parse url encoded information from request body */
 app.use(methodOverride('_method'));                          /* methodOverride allows to change get/put requests to other types(patch,delete,etc) */
 app.use(morgan('tiny'));
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'public')));       /* Setting the public directory for static assets */
 
 const userRoute = require("./routes/user");
 

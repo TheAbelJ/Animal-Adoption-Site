@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const Cats = require('../models/cats');
-const Dogs = require('../models/dogs');
+const Pet = require('../models/pets');
 const Shelters = require('../models/shelters.js');
 
 mongoose.connect('mongodb://127.0.0.1:27017/petRescue', {
@@ -30,22 +29,21 @@ const seedShelters=async()=>{
             }
         }
     });
-    cat = await Cats.findOne({});
-    dog = await Dogs.findOne({});
-    shelter.cats.push(cat);
-    shelter.dogs.push(dog);
-   res = await shelter.save();
+    /* pet = await Pet.findOne({});
+    shelter.pets.push(pet); */
+    res = await shelter.save();
     console.log(res);
 }
 
 seedShelters();
 
+
 /* to check if delete post middleware works */
-/* Shelters.findByIdAndDelete('62c19bc6ba1d24234f58f53f')
+/* Shelters.findByIdAndDelete('62c8804fb1492b70fe5e0a21')
 .then(res=>{
     console.log(res)
 })
 .catch(err=>{
     console.log(err)
-});
- */
+}); */
+

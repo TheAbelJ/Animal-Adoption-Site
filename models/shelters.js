@@ -1,6 +1,4 @@
 const mongoose=require('mongoose');
-const Dog = require('./dogs');
-const Cat = require('./cats');
 const Schema= mongoose.Schema;
 
 
@@ -24,33 +22,24 @@ const ShelterSchema = new Schema({
             zip: Number
         }
     },
-    dogs: [
+    pets: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Dog'
-        }
-    ],
-    cats: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Cat'
+            ref: 'Pet'
         }
     ]
 });
 
+//To delete all pets when shelter is deleted
 ShelterSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
-        await Dog.deleteMany({
+        await Pet.deleteMany({
             _id: {
-                $in: doc.dogs
-            }
-        })
-        await Cat.deleteMany({
-            _id: {
-                $in: doc.cats
+                $in: doc.pets
             }
         })
     }
 })
-
 module.exports = mongoose.model('Shelter',ShelterSchema);
+
+const Pet = require('../models/pets');
