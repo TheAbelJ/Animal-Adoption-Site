@@ -5,17 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "gulp" : "gulp"
+    "gulp": "gulp"
   },
   "author": "Abel John Reji",
   "license": "ISC",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "ejs": "^3.1.8",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.1",
     "method-override": "^3.0.0",
     "mongoose": "^6.3.6",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "session": "^0.1.0"
   },
   "devDependencies": {
     "gulp": "^4.0.2",

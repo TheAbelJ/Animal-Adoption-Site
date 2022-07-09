@@ -30,11 +30,11 @@ const UserSchema = new Schema({
 });
 
 //To delete all pets when user is deleted
-UserSchema.post('findOneAndDelete', async function (doc) {
-    if (doc) {
+UserSchema.post('findOneAndDelete', async function (user) {
+    if (user) {
         await Pet.deleteMany({
             _id: {
-                $in: doc.pets
+                $in: user.pets
             }
         })
     }

@@ -82,7 +82,7 @@ const PetSchema = new Schema({
 
 
 /* pre hook to update User/shelter pet list with newly saved pet */
-PetSchema.pre('save',async function(){
+PetSchema.pre('save',async function(){              /* No need to call next if using an async function in mongoose middleware */
     if(this.user){
         console.log(this.user.valueOf());            
         user = await User.findById(this.user);

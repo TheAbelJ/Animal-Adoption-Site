@@ -31,11 +31,11 @@ const ShelterSchema = new Schema({
 });
 
 //To delete all pets when shelter is deleted
-ShelterSchema.post('findOneAndDelete', async function (doc) {
-    if (doc) {
+ShelterSchema.post('findOneAndDelete', async function (shelter) {
+    if (shelter) {
         await Pet.deleteMany({
             _id: {
-                $in: doc.pets
+                $in: shelter.pets
             }
         })
     }

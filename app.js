@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan=require('morgan');
 const ejsMate = require("ejs-mate");  /* requiring ejs mate to use layouts */
+const session = require('express-session');
+const flash = require('connect-flash');
+
 
 /* Requiring Functions */
 const catchAsync = require('./utils/catchAsync');
@@ -36,6 +39,25 @@ app.use(express.urlencoded({ extended: true }));            /* used to parse url
 app.use(methodOverride('_method'));                          /* methodOverride allows to change get/put requests to other types(patch,delete,etc) */
 app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname,'public')));       /* Setting the public directory for static assets */
+
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig))
+
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 const userRoute = require("./routes/user");
 
