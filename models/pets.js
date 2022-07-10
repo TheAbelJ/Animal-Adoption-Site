@@ -1,17 +1,12 @@
 const mongoose=require('mongoose');
 const Schema= mongoose.Schema;
-const {petList}=require('../seeds/petbreeds')
+const {petList,species}=require('../seeds/petbreeds')
 
 const PetSchema = new Schema({
-    type:{
-        type:String,
-        required:true,
-        enum:['dog','cat']
-    },
     species:{
         type:String,
         required:true,
-        enum:['dog','cat']
+        enum:species
     },
     name:{
         type:String,

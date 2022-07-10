@@ -15,8 +15,8 @@ const ShelterSchema = new Schema({
             required:[true,'Phone Number Required']
         },
         address: {
-            street1: String,
-            street2: String,
+            addrline1: String,
+            addrline2: String,
             city: String,
             state: String,
             zip: Number

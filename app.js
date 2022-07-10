@@ -7,6 +7,8 @@ const morgan=require('morgan');
 const ejsMate = require("ejs-mate");  /* requiring ejs mate to use layouts */
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 
 /* Requiring Functions */
@@ -14,9 +16,9 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 
 /* Requiring Models */
-const Animals = require('./models/pets');
-const Dogs = require('./models/dogs');
-const Cats = require('./models/cats')
+const Pet = require('./models/pets');
+const User = require('./models/users');
+const Shelter = require('./models/shelters')
 
 mongoose.connect('mongodb://127.0.0.1:27017/petRescue', {
 
@@ -59,11 +61,19 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use(passport.initialize());
+app.use(passport.session());                            //should be called after session
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 const userRoute = require("./routes/user");
-
+const petRoute = require("./routes/pet")
 app.use('/user',userRoute);
+app.use('/pet',petRoute)
 
-app.get('/', (req, res) => {
+app.get(['/','/home'], (req, res) => {
     res.render('home');
 });
 

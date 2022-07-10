@@ -1,0 +1,74 @@
+<% layout('./layouts/boilerplate') %> 
+
+<div class="container ">
+    <div class="row d-flex justify-content-center">
+        <div class="card  mt-5 col-md-8 col-sm-10">
+            <div class="card-header">
+                <h1 class="text-center">Register</h1>
+            </div>
+            
+            <form action="/user/register" method="POST" class=" validated-form  mt-3" novalidate >
+                <div class="row d-flex justify-content-around">
+                    <div class= "col-md-5">
+                        <h3 class = "mb-4 mt-3" >General Information</h3>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="firstname">First name</label>
+                            <input class="form-control" type="text" id="firstname" name="name[first]" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="lastname">Last name</label>
+                            <input class="form-control" type="text" id="lastname" name="name[last]" required>
+                        </div>
+                    </div>
+                    <div class= "col-md-5">
+                        <h3 class="mb-4 mt-3">Contact Details</h3>
+                        <div class="mb-3">
+                            <label class="form-label" for="phone">Phone Number</label>
+                            <input class="form-control" type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+            
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" required>
+                        </div>
+                        <h3 class="mb-3">Address</h2>
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <input class="form-control" type="text" id="addrline1" name="addr[line1]" placeholder="Address Line 1" required>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <input class="form-control" type="text" id="addrline2" name="addr[line2]" placeholder="Address Line 2" required>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <input class="form-control" type="numeric" id="zip" pattern="[0-9]{6}" name="addr[zip]" placeholder="Zip Code" required>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <input class="form-control" type="text" id="city" name="addr[city]" placeholder="City" required>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <input class="form-control" type="text" id="state" name="addr[state]" placeholder="State" required>
+                                </div>
+                            </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="row d-flex justify-content-center">      
+                    <button onclick= "document.location.href='/home'"  class="btn btn-danger m-3 col-lg-2 col-3" >Return</button>
+                    <button type="submit" class="btn btn-success m-3 col-lg-2 col-3" >Register</button>
+                </div>
+                
+            </form>
+        </div>
+        
+    </div>
+</div>
+

@@ -1,6 +1,5 @@
 @use 'components' as *;  /* index.scss by forwards all files from components folder. index.scss is by default and no need to specify during @use */
 @use 'variables' as *;
-
 *{
     box-sizing:border-box;
     padding:0;

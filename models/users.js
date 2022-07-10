@@ -1,11 +1,16 @@
 const mongoose=require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose')
 const Schema= mongoose.Schema;
 
 
 const UserSchema = new Schema({
-    name:{
+    firstName:{
         type:String,
-        required:[true,'Name required']
+        required:[true,'First name required']
+    },
+    lastName:{
+        type:String,
+        required:[true,'Last name required']
     },
     contact:{
         email:String,
@@ -14,8 +19,8 @@ const UserSchema = new Schema({
             required:[true,'Phone Number Required']
         },
         address: {
-            street1: String,
-            street2: String,
+            addrline1: String,
+            addrline2: String,
             city: String,
             state: String,
             zip: Number
@@ -28,6 +33,8 @@ const UserSchema = new Schema({
         }
     ]
 });
+
+UserSchema.plugin(passportLocalMongoose);
 
 //To delete all pets when user is deleted
 UserSchema.post('findOneAndDelete', async function (user) {

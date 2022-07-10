@@ -16,7 +16,8 @@ db.once("open", () => {
 const seedUsers=async()=>{
     await Users.deleteMany({});
     const user = new Users({
-        name:'Mahito',
+        firstName:'Mahito',
+        lastName:'John',
         contact:{
             email:'fool@gmail.com',
             phone:3434353434,

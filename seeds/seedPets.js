@@ -15,7 +15,6 @@ db.once("open", () => {
 const seedPets=async()=>{
     await Pet.deleteMany({});
     const pet1=new Pet({
-        type:'dog',
         species:'dog',
         name:'bones',
         age:12,
@@ -50,7 +49,6 @@ const seedPets=async()=>{
        
     })
     const pet2=new Pet({
-        type:'cat',
         species:'cat',
         name:'jimmy',
         age:10,
