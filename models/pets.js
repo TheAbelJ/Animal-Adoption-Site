@@ -30,7 +30,7 @@ const PetSchema = new Schema({
         },
         secondary:{
             type:String,
-            enum:petList
+            enum:petList.concat([''])
         },
         mixed:Boolean
     },
@@ -41,15 +41,11 @@ const PetSchema = new Schema({
         shots_current:Boolean,
         leash_trained:Boolean
     },
-    environment:{
-        children:Boolean,
-        dogs:Boolean,
-        cats:Boolean
-    },
     description:{
         type:String,
         required:[true,'Description Required']
     },
+    medicalIssues:String,
     contact:{
         email:String,
         phone:{
