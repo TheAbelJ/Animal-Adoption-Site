@@ -13,22 +13,19 @@ const Shelter = require('../models/shelters')
 const {species,dogList,dogAttr,catList,catAttr}=require('../seeds/petbreeds')
 const { isLoggedIn } = require('../middleware/isLoggedIn');
 
+//Update species list in js script validateForms.js in public to add a new pet
 router.get('/new',isLoggedIn,(req,res)=>{
-    res.render('pet/selectType',{species})
-})
-
-router.get('/new/dog',isLoggedIn,(req,res)=>{
-    res.render('pet/newDog',{dogList,dogAttr})
-})
-
-router.get('/new/cat',isLoggedIn,(req,res)=>{
-    res.render('pet/newCat',{catList,catAttr})
+    if(req.query.petType==='dog')
+        return res.render('pet/newPet',{species,petList:dogList,attributes:dogAttr,pet:"dog"})
+    else if(req.query.petType==='cat')
+        return res.render('pet/newPet',{species,petList:catList,attributes:catAttr,pet:"cat"})
+    else
+    res.render('pet/newPet',{species,petList:[""],pet:'pet',attributes:[""]})
 })
 
 router.post('/new/:pet',isLoggedIn,catchAsync(async (req,res,next)=>{
     
-    petSpecies = req.params.pet
-    const {name,age,weight,gender,primaryBreed,secondaryBreed,attributes,
+    const {petType,name,age,weight,gender,primaryBreed,secondaryBreed,attributes,
             medicalIssues,description} = req.body;
     
     mixedBool=(secondaryBreed)?true:false;          //Setting boolean value for mixed if secondary breed selected
@@ -45,7 +42,7 @@ router.post('/new/:pet',isLoggedIn,catchAsync(async (req,res,next)=>{
     
     contactDetails = owner.contact;
     newPet = {
-        species:petSpecies,
+        species:petType,
         name,age,weight,gender,
         breeds:{
             primary:primaryBreed,

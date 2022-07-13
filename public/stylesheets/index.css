@@ -107,3 +107,7 @@ footer {
   margin: 0;
   font-family: arial;
 }
+
+.hidden {
+  display: none;
+}
