@@ -9,8 +9,10 @@ defaultSelect = document.querySelector('#defaultSelect')
 const changeURL = function () {
     for(let i of species){
         if (this.value===i) {
-            url=`http://localhost:3000/pet/new?petType=${i}`
-            window.location = url
+            /* url=`http://localhost:3000/pet/new?petType=${i} */
+            url = window.location.href
+            url = url.split('?')[0]         //extract string without query parameters
+            window.location.href = `${url}?petType=${i}`
         }
     }
 }
