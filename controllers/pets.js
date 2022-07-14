@@ -1,8 +1,3 @@
-const express = require("express");
- 
-const router = express.Router();
-const passport = require('passport');
-
 const ExpressError = require('../utils/ExpressError');
 const catchAsync = require('../utils/catchAsync'); 
 
@@ -11,19 +6,18 @@ const User = require('../models/users');
 const Shelter = require('../models/shelters')
 
 const {species,dogList,dogAttr,catList,catAttr}=require('../seeds/petbreeds')
-const { isLoggedIn } = require('../middleware/isLoggedIn');
 
 //Update species list in js script validateForms.js in public to add a new pet
-router.get('/new',isLoggedIn,(req,res)=>{
+module.exports.renderNewForm = (req,res)=>{
     if(req.query.petType==='dog')
         return res.render('pet/newPet',{species,petList:dogList,attributes:dogAttr,pet:"dog"})
     else if(req.query.petType==='cat')
         return res.render('pet/newPet',{species,petList:catList,attributes:catAttr,pet:"cat"})
     else
     res.render('pet/newPet',{species,petList:[""],pet:'pet',attributes:[""]})
-})
+}
 
-router.post('/new/:pet',isLoggedIn,catchAsync(async (req,res,next)=>{
+module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     
     const {petType,name,age,weight,gender,primaryBreed,secondaryBreed,attributes,
             medicalIssues,description} = req.body;
@@ -63,7 +57,4 @@ router.post('/new/:pet',isLoggedIn,catchAsync(async (req,res,next)=>{
     const pet = new Pet(newPet);
     await pet.save();
     res.redirect('/home');
-}))
-
-
-module.exports = router;
+})

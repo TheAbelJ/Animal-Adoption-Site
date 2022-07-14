@@ -1,17 +1,15 @@
-const express = require("express");
-const catchAsync = require('../utils/catchAsync');  
-const router = express.Router();
+const catchAsync = require('../utils/catchAsync');
 const passport = require('passport');
-
 const User = require('../models/users');
 
-router.get('/register',(req,res)=>{
+module.exports.renderRegisterForm = (req,res)=>{
     if (req.isAuthenticated()) {
         return res.redirect('/home');
-}
+    }
     res.render('user/register')
-})
-router.post('/register',catchAsync(async (req,res)=>{
+}
+
+module.exports.registerUser = catchAsync(async (req,res)=>{
     if (req.isAuthenticated()) {
         return res.redirect('/home');
     }
@@ -34,7 +32,7 @@ router.post('/register',catchAsync(async (req,res)=>{
             }
         }
         const user = new User(newUser);
-        const registeredUser = await User.register(user, password);   //register is passport method to add user to database with hashed,salter pswd
+        const registeredUser = await User.register(user, password);   //register is passport method to add user to database with hashed,salted pswd
         req.login(registeredUser, err => {
          if (err) return next(err);
          req.flash('success', 'Welcome to Pet Rescue!');
@@ -45,30 +43,28 @@ router.post('/register',catchAsync(async (req,res)=>{
         res.redirect('register');
     }
     
-}))
+})
 
-router.get('/login', (req, res) => {
+module.exports.renderLoginForm = (req, res) => {
     if (req.isAuthenticated()) {
         return res.redirect('/home');
     }
     console.dir(req.session)
     res.render('user/login');
-})
+}
 
-router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: 'login' }), (req, res) => {
+module.exports.loginUser =  (req, res) => {
     req.flash('success', 'Welcome back!');
     console.dir(req.session)
     const redirectUrl = req.session.returnTo || '/home';
     /* delete req.session.returnTo; */
     res.redirect(redirectUrl);
-})
+}
 
-router.get('/logout', (req, res) => {
+module.exports.logoutUser = (req, res) => {
     req.logout(function(err){
         if (err) {return next(err)}
     });
     req.flash('success', "Goodbye!");
     res.redirect('/home');
-})
-
-module.exports = router;
+}

@@ -74,8 +74,8 @@ app.use((req, res, next) => {
 })
 
 
-const userRoute = require("./routes/user");
-const petRoute = require("./routes/pet")
+const userRoute = require("./routes/users");
+const petRoute = require("./routes/pets")
 app.use('/user',userRoute);
 app.use('/pet',petRoute)
 
