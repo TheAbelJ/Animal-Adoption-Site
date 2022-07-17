@@ -60,12 +60,10 @@ const PetSchema = new Schema({
             zip: Number
         }
     },
-    images:[
-        {
+    image:{
             url:String,
             fileName:String
-        }
-    ],
+        },
     shelter:{
         type: Schema.Types.ObjectId,
         ref: 'Shelter'

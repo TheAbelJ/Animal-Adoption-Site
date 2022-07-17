@@ -2,6 +2,8 @@ const catchAsync = require('../utils/catchAsync');
 const passport = require('passport');
 const User = require('../models/users');
 const Pet = require('../models/pets')
+const {cloudinary} = require('../cloudinary')
+
 
 module.exports.renderRegisterForm = (req,res)=>{
     if (req.isAuthenticated()) {
@@ -26,18 +28,10 @@ module.exports.renderLoginForm = (req, res) => {
 
 module.exports.loginUser =  (req, res) => {
     req.flash('success', 'Welcome back!');
-    console.dir(req.session)
     const redirectUrl = req.session.returnTo || '/home';
     /* delete req.session.returnTo; */
     res.redirect(redirectUrl);
 }
-
-module.exports.deletePet = catchAsync(async (req,res)=>{
-    const delPet = await Pet.findByIdAndDelete(req.body.petId)
-    console.log(delPet)
-    res.redirect('pets')
-
-})
 
 module.exports.logoutUser = (req, res) => {
     req.logout(function(err){
@@ -51,6 +45,13 @@ module.exports.renderPets = catchAsync(async (req,res)=>{
     const user = await User.findById(req.user._id)
     const pets = await Pet.find({_id:{ $in:user.pets }})
     res.render('user/petList',{pets})
+})
+
+module.exports.deletePet = catchAsync(async (req,res)=>{
+    const delPet = await Pet.findByIdAndDelete(req.body.petId)
+    cloudinary.uploader.destroy(delPet.image.fileName)
+    res.redirect('pets')
+
 })
 
 module.exports.registerUser = catchAsync(async (req,res)=>{

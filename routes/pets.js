@@ -9,7 +9,7 @@ const { isLoggedIn } = require('../middleware/isLoggedIn');
 
 router.get('/new',isLoggedIn,pets.renderNewForm)
 
-router.post('/new/:pet',isLoggedIn,upload.array('image'),pets.createNewPet)
+router.post('/new/:pet',isLoggedIn,upload.single('image'),pets.createNewPet)
 
 
 module.exports = router;

@@ -54,7 +54,10 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     else{
         newPet.shelter = ownerId;
     }
-    newPet.images = req.files.map(img => ({url:img.path,fileName:img.filename}));
+    newPet.image = {
+        url:req.file.path,
+        fileName:req.file.filename
+    }
     const pet = new Pet(newPet);
     await pet.save();
     res.redirect('/home');
