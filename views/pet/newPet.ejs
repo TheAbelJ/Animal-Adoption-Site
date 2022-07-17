@@ -6,7 +6,7 @@
                 <div class="card-header">
                     <h1 class="text-center" id="formTitle">Create New <%= pet %></h1>
                 </div>
-                <form action="/pet/new/<%= pet %>" method="POST" class=" validated-form  mt-3" novalidate>
+                <form action="/pet/new/<%= pet %>" method="POST" class=" validated-form  mt-3" novalidate enctype="multipart/form-data">
                     <div class="row mb-3 ml-3 col-xs-10 col-sm-9 col-md-6">
                         <label for="petType" class="mb-3">Select the Type of Pet</label>
                         <select class="form-select" id="petSelect" name="petType" id="petType" class="mb-3">
@@ -82,7 +82,15 @@
                                     <textarea class="form-control" id="description" rows="3" name="description" required></textarea>
                                 </div>
                         </div>
-
+                        <div class="row mb-3 ml-3 mr-3">
+                            <div class="form-file custom-file">
+                                <input type="file" class="form-file-input" id="image" name="image" multiple>
+                                <label class="form-file-label" for="image">
+                                    <span class="form-file-text custom-file-label">Choose image(s)...</span>
+                                    <span class="form-file-button">Browse</span>
+                                </label>
+                            </div>
+                        </div>
                         <div class="row d-flex justify-content-center">
                             <button type="submit" class="btn btn-success m-3 col-lg-2 col-3">Submit</button>
                         </div>

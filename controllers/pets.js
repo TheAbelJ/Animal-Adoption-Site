@@ -25,6 +25,7 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     mixedBool=(secondaryBreed)?true:false;          //Setting boolean value for mixed if secondary breed selected
     ownerId = req.user._id;                         //setting user/shelterid to that of currently logged in user
     
+
     let shelter_user = true;                       //true if owner is person. false if owner is shelter
     let owner = await User.findById(ownerId);       //find owner/shelter id
     if(!owner){
@@ -53,7 +54,7 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     else{
         newPet.shelter = ownerId;
     }
-
+    newPet.images = req.files.map(img => ({url:img.path,fileName:img.filename}));
     const pet = new Pet(newPet);
     await pet.save();
     res.redirect('/home');

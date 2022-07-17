@@ -53,13 +53,19 @@ const PetSchema = new Schema({
             required:[true,'Phone Number Required']
         },
         address: {
-            street1: String,
-            street2: String,
+            addrline1: String,
+            addrline2: String,
             city: String,
             state: String,
             zip: Number
         }
     },
+    images:[
+        {
+            url:String,
+            fileName:String
+        }
+    ],
     shelter:{
         type: Schema.Types.ObjectId,
         ref: 'Shelter'
@@ -71,6 +77,15 @@ const PetSchema = new Schema({
 
 });
 
+
+PetSchema.post('findOneAndDelete', async function (pet) {
+    if (pet.user) {
+        await User.updateOne(
+            {_id: pet.user.valueOf() },
+            { $pullAll: { pets: [pet._id]} }
+        )
+    }
+})
 
 /* pre hook to update User/shelter pet list with newly saved pet */
 PetSchema.pre('save',async function(){              /* No need to call next if using an async function in mongoose middleware */

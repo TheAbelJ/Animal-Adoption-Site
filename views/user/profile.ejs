@@ -1,0 +1,65 @@
+<% layout('./layouts/boilerplate') %> 
+
+<div class="container ">
+    <div class="row d-flex justify-content-center">
+        <div class="card  mt-5 col-sm-10">
+            <div class="card-header">
+                <h1 class="text-center">Your Profile</h1>
+            </div>
+            <form action="/user/profile?_method=PATCH" method="post" class=" validated-form  mt-3" novalidate >
+                <div class="row d-flex justify-content-around">
+                    <div class= "col-md-5">
+                        <h3 class = "mb-4 mt-3" >General Information</h3>
+                        <div class="mb-3">
+                            <label class="form-label" for="firstname">First name</label>
+                            <input class="form-control" type="text" id="firstname" name="name[first]" value="<%= user.firstName %>" required disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="lastname">Last name</label>
+                            <input class="form-control" type="text" id="lastname" name="name[last]" value="<%= user.lastName %>" required disabled>
+                        </div>
+                        <h3 class="mb-4 mt-3">Contact Details</h3>
+                        <div class="mb-3">
+                            <label class="form-label" for="phone">Phone Number</label>
+                            <input class="form-control" type="tel" id="phone" name="phone" pattern="[0-9]{10}" value="<%= user.contact.phone %>" required disabled>
+            
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" value="<%= user.contact.email %>" required disabled>
+                        </div>
+                    </div>
+                    <div class= "col-md-5">
+                        <h3 class="mb-3 mt-3 mb-4">Address</h2>
+                            <div class="row">
+                                <div class="mb-3 col-12">
+                                    <input class="form-control" type="text" id="addrline1" name="address[addrline1]" placeholder="Address Line 1" value="<%= user.contact.address.addrline1 %>" required disabled>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <input class="form-control" type="text" id="addrline2" name="address[addrline2]" placeholder="Address Line 2" value="<%= user.contact.address.addrline2 %>" required disabled>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <input class="form-control" type="text" id="city" name="address[city]" placeholder="City" value="<%= user.contact.address.city %>" required disabled>
+                                </div>
+                                <div class="mb-3 col-6">
+                                    <input class="form-control" type="text" id="state" name="address[state]" placeholder="State" value="<%= user.contact.address.state %>" required disabled>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <input class="form-control" type="numeric" id="zip" pattern="[0-9]{6}" name="address[zip]" placeholder="Zip Code" value="<%= user.contact.address.zip %>" required disabled>
+                                </div>
+                            </div>
+                    </div>
+                    
+                </div> 
+                <div class="row d-flex justify-content-center">      
+                    <button id="edit" type="button" class="btn btn-danger m-3 col-lg-2 col-3">Edit</button>
+                    <button id="save" type="submit" class="hidden btn btn-success m-3 col-lg-2 col-3" >Save</button>
+                </div>
+                
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+<script src="/scripts/userProfile.js"></script>
