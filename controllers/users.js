@@ -3,6 +3,10 @@ const passport = require('passport');
 const User = require('../models/users');
 const Pet = require('../models/pets')
 
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
+
 module.exports.renderRegisterForm = (req,res)=>{
     if (req.isAuthenticated()) {
         return res.redirect('/home');
@@ -55,6 +59,15 @@ module.exports.registerUser = catchAsync(async (req,res)=>{
     if (req.isAuthenticated()) {
         return res.redirect('/home');
     }
+    //{house number} {street} {city} {state} {zip} // format for forward geocoding
+    queryString = '';
+    Object.values(req.body.addr).forEach(val => queryString+= (val+ ' ' ) ); //generate query string to send to mapbox
+    const geoData = await geocoder.forwardGeocode({
+        query: queryString,
+        countries:['IN'],                                                       // ISO 639-1 language code of india is IN
+        limit: 1
+    }).send()
+    const location = geoData.body.features[0].geometry; //returns longitude and latitude in that order
     try {
         const { username,password,name,phone,email,addr } = req.body;
         newUser={
@@ -71,7 +84,8 @@ module.exports.registerUser = catchAsync(async (req,res)=>{
                     state:addr.state,
                     zip:addr.zip
                 }
-            }
+            },
+            location
         }
         const user = new User(newUser);
         const registeredUser = await User.register(user, password);   //register is passport method to add user to database with hashed,salted pswd

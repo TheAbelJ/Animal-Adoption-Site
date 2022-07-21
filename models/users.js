@@ -26,6 +26,17 @@ const UserSchema = new Schema({
             zip: Number
         }
     },
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {      //longitude first then latitude
+            type: [Number],
+            required: true
+        }
+    },
     pets: [
         {
             type: Schema.Types.ObjectId,
