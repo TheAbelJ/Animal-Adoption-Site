@@ -2,8 +2,6 @@ const catchAsync = require('../utils/catchAsync');
 const passport = require('passport');
 const User = require('../models/users');
 const Pet = require('../models/pets')
-const {cloudinary} = require('../cloudinary')
-
 
 module.exports.renderRegisterForm = (req,res)=>{
     if (req.isAuthenticated()) {
@@ -49,7 +47,6 @@ module.exports.renderPets = catchAsync(async (req,res)=>{
 
 module.exports.deletePet = catchAsync(async (req,res)=>{
     const delPet = await Pet.findByIdAndDelete(req.body.petId)
-    cloudinary.uploader.destroy(delPet.image.fileName)
     res.redirect('pets')
 
 })

@@ -1,6 +1,7 @@
 const mongoose=require('mongoose');
 const Schema= mongoose.Schema;
 const {petList,species}=require('../seeds/petbreeds')
+const {cloudinary} = require('../cloudinary')
 
 const PetSchema = new Schema({
     species:{
@@ -75,14 +76,23 @@ const PetSchema = new Schema({
 
 });
 
-
 PetSchema.post('findOneAndDelete', async function (pet) {
+    
+    //deletes pet ids from their owners pet array
     if (pet.user) {
         await User.updateOne(
             {_id: pet.user.valueOf() },
             { $pullAll: { pets: [pet._id]} }
         )
     }
+    else if (pet.shelter) {
+        await Shelter.updateOne(
+            {_id: pet.shelter.valueOf() },
+            { $pullAll: { pets: [pet._id]} }
+        )
+    }
+    //deletes hosted pet images on cloudinary
+    cloudinary.uploader.destroy(pet.image.fileName);
 })
 
 /* pre hook to update User/shelter pet list with newly saved pet */
