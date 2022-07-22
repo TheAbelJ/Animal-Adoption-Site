@@ -59,15 +59,28 @@ module.exports.registerUser = catchAsync(async (req,res)=>{
     if (req.isAuthenticated()) {
         return res.redirect('/home');
     }
-    //{house number} {street} {city} {state} {zip} // format for forward geocoding
-    queryString = '';
-    Object.values(req.body.addr).forEach(val => queryString+= (val+ ' ' ) ); //generate query string to send to mapbox
-    const geoData = await geocoder.forwardGeocode({
-        query: queryString,
-        countries:['IN'],                                                       // ISO 639-1 language code of india is IN
-        limit: 1
-    }).send()
-    const location = geoData.body.features[0].geometry; //returns longitude and latitude in that order
+    if(req.body.location.latitude){
+        const location = {
+            type : "Point",
+            coordinates : [
+              parseInt(req.body.location.longitude),
+              parseInt(req.body.location.latitude)
+            ]
+        }
+    }
+    else{
+        //{house number} {street} {postcode} {city} {state} format for forward geocoding
+        queryString = '';
+        const addr = req.body.addr;
+        queryString = [addr.line1, addr.zip.toString(), addr.city, addr.state].join(' ');  //generate query string to send to mapbox
+        console.log(queryString);
+        const geoData = await geocoder.forwardGeocode({
+            query: queryString,
+            countries:['IN'],                                                       // ISO 639-1 language code of india is IN
+            limit: 1
+        }).send()
+        const location = geoData.body.features[0].geometry; //returns longitude and latitude in that order
+    }
     try {
         const { username,password,name,phone,email,addr } = req.body;
         newUser={
@@ -98,7 +111,6 @@ module.exports.registerUser = catchAsync(async (req,res)=>{
         req.flash('error', e.message);    //e.message comes from passport
         res.redirect('register');
     }
-    
 })
 
 module.exports.updateUser = catchAsync(async (req,res) =>{
@@ -110,7 +122,6 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
     if(user.firstName!==req.body.name.first || user.lastName!==req.body.name.last){
         nameChange = true;
     }
-
     req.body.address.zip = parseInt(req.body.address.zip);
     //to check if address was updated
     for( let i of keys){
@@ -118,6 +129,17 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
             addrChange = true;
             break;
         }
+    }
+    if(addrChange){
+        queryString = ''; 
+        const addr = req.body.address;
+        queryString = [addr.addrline2, addr.zip.toString(), addr.city, addr.state].join(' ');  //generate query string to send to mapbox
+        const geoData = await geocoder.forwardGeocode({
+            query: queryString,
+            countries:['IN'],                                                       // ISO 639-1 language code of india is IN
+            limit: 1
+        }).send()
+        const location = geoData.body.features[0].geometry;
     } 
     newContact = {
         email:req.body.email,
@@ -142,5 +164,4 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
         await user.save();
     }
     res.redirect('profile')
-        
 })

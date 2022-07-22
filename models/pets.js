@@ -61,6 +61,17 @@ const PetSchema = new Schema({
             zip: Number
         }
     },
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {      //longitude first then latitude
+            type: [Number],
+            required: true
+        }
+    },
     image:{
             url:String,
             fileName:String

@@ -42,20 +42,22 @@
                         <h3 class="mb-3">Address</h2>
                             <div class="row">
                                 <div class="mb-3 col-12">
-                                    <input class="form-control" type="text" id="addrline1" name="addr[line1]" placeholder="House Number" required>
+                                    <input class="form-control location" type="text" id="addrline1" name="addr[line1]" placeholder="House Number" required>
                                 </div>
                                 <div class="mb-3 col-12">
-                                    <input class="form-control" type="text" id="addrline2" name="addr[line2]" placeholder="Street" required>
+                                    <input class="form-control location" type="text" id="addrline2" name="addr[line2]" placeholder="Street" required>
                                 </div>    
                                 <div class="mb-3 col-6">
-                                    <input class="form-control" type="text" id="city" name="addr[city]" placeholder="City" required>
+                                    <input class="form-control location" type="text" id="city" name="addr[city]" placeholder="City" required>
                                 </div>
                                 <div class="mb-3 col-6">
-                                    <input class="form-control" type="text" id="state" name="addr[state]" placeholder="State" required>
+                                    <input class="form-control location" type="text" id="state" name="addr[state]" placeholder="State" required>
                                 </div>
                                 <div class="mb-3 col-12">
-                                    <input class="form-control" type="numeric" id="zip" pattern="[0-9]{6}" name="addr[zip]" placeholder="Zip Code" required>
+                                    <input class="form-control location" type="numeric" id="zip" pattern="[0-9]{6}" name="addr[zip]" placeholder="Zip Code" required>
                                 </div>
+                                <input type="hidden" name="location[latitude]" id="latitude" value="">
+                                <input type="hidden" name="location[longitude]" id="longitude" value="">
                             </div>
                     </div>
                     
@@ -72,3 +74,5 @@
     </div>
 </div>
 
+
+<script src="/scripts/userLocation.js"></script>

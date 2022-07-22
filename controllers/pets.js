@@ -36,6 +36,7 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
        return next(new ExpressError('Owner/Shelter Not found', 404));
     
     contactDetails = owner.contact;
+    location = owner.location;
     newPet = {
         species:petType,
         name,age,weight,gender,
@@ -45,7 +46,8 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
             mixed:mixedBool
         },
         attributes,description,medicalIssues,
-        contact: contactDetails
+        contact: contactDetails,
+        location
     }
     
     if(shelter_user){
