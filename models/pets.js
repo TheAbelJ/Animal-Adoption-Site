@@ -108,8 +108,7 @@ PetSchema.post('findOneAndDelete', async function (pet) {
 
 /* pre hook to update User/shelter pet list with newly saved pet */
 PetSchema.pre('save',async function(){              /* No need to call next if using an async function in mongoose middleware */
-    if(this.user){
-        console.log(this.user.valueOf());            
+    if(this.user){          
         user = await User.findById(this.user);
         if(user){
             user.pets.push(this._id);

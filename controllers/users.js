@@ -59,12 +59,13 @@ module.exports.registerUser = catchAsync(async (req,res)=>{
     if (req.isAuthenticated()) {
         return res.redirect('/home');
     }
+    let location
     if(req.body.location.latitude){
-        const location = {
+        location = {
             type : "Point",
             coordinates : [
-              parseInt(req.body.location.longitude),
-              parseInt(req.body.location.latitude)
+              parseFloat(req.body.location.longitude),
+              parseFloat(req.body.location.latitude)
             ]
         }
     }
@@ -72,14 +73,14 @@ module.exports.registerUser = catchAsync(async (req,res)=>{
         //{house number} {street} {postcode} {city} {state} format for forward geocoding
         queryString = '';
         const addr = req.body.addr;
-        queryString = [addr.line1, addr.zip.toString(), addr.city, addr.state].join(' ');  //generate query string to send to mapbox
-        console.log(queryString);
+        queryString = [addr.line2, addr.zip.toString(), addr.city, addr.state].join(' ');  //generate query string to send to mapbox
+        console.log(queryString,"in post request");
         const geoData = await geocoder.forwardGeocode({
             query: queryString,
             countries:['IN'],                                                       // ISO 639-1 language code of india is IN
             limit: 1
         }).send()
-        const location = geoData.body.features[0].geometry; //returns longitude and latitude in that order
+        location = geoData.body.features[0].geometry; //returns longitude and latitude in that order
     }
     try {
         const { username,password,name,phone,email,addr } = req.body;
@@ -114,15 +115,20 @@ module.exports.registerUser = catchAsync(async (req,res)=>{
 })
 
 module.exports.updateUser = catchAsync(async (req,res) =>{
+    
     const user = await User.findById(req.user._id);
     const keys = Object.keys(user.contact.address);
     addrChange = false              // to log if address was changed
     contactChange = false           //to log if contact was changed
     nameChange = false              //to log if name was changed
+    let location
+
     if(user.firstName!==req.body.name.first || user.lastName!==req.body.name.last){
         nameChange = true;
     }
+    
     req.body.address.zip = parseInt(req.body.address.zip);
+    
     //to check if address was updated
     for( let i of keys){
         if(req.body.address[i]!==user.contact.address[i]){
@@ -130,17 +136,32 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
             break;
         }
     }
+    
     if(addrChange){
-        queryString = ''; 
-        const addr = req.body.address;
-        queryString = [addr.addrline2, addr.zip.toString(), addr.city, addr.state].join(' ');  //generate query string to send to mapbox
-        const geoData = await geocoder.forwardGeocode({
-            query: queryString,
-            countries:['IN'],                                                       // ISO 639-1 language code of india is IN
-            limit: 1
-        }).send()
-        const location = geoData.body.features[0].geometry;
+        if(req.body.location.latitude){
+            location = {
+                type : "Point",
+                coordinates : [
+                  parseFloat(req.body.location.longitude),
+                  parseFloat(req.body.location.latitude)
+                ]
+            }
+        }
+        else{
+            //{house number} {street} {postcode} {city} {state} format for forward geocoding
+            queryString = '';
+            const addr = req.body.address;
+            queryString = [addr.addrline2, addr.zip.toString(), addr.city, addr.state].join(' ');  //generate query string to send to mapbox
+            console.log(queryString,"in post request");
+            const geoData = await geocoder.forwardGeocode({
+                query: queryString,
+                countries:['IN'],                                                       // ISO 639-1 language code of india is IN
+                limit: 1
+            }).send()
+            location = geoData.body.features[0].geometry; //returns longitude and latitude in that order
+        }
     } 
+    
     newContact = {
         email:req.body.email,
         phone:parseInt(req.body.phone),
@@ -151,16 +172,18 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
     if(parseInt(req.body.phone)!==user.contact.phone || req.body.email!==user.contact.email){
         contactChange = false;
     }
+    
     if(addrChange || contactChange){
         for( let i of user.pets){ 
-            id = i.valueOf()
-            await Pet.findByIdAndUpdate(id,{contact:newContact})
+            id = i.valueOf();
+            await Pet.findByIdAndUpdate(id,{contact:newContact, location:location});
         }
     }
     if(addrChange || nameChange || contactChange){
         user.contact = newContact;
         user.firstName = req.body.name.first;
         user.lastName = req.body.name.last;
+        user.location = location
         await user.save();
     }
     res.redirect('profile')
