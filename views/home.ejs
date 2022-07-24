@@ -1,1 +1,17 @@
 <% layout('/layouts/boilerplate') %> 
+
+<form action="/pet/search" method="GET">
+        
+    <select class="form-select" name="species" id="selectedSpecies"required>
+        <% species.forEach((petSpecies,index) =>{ %> 
+            <option value="<%= petSpecies %>" <%= index===0? 'selected':''  %>><%= petSpecies %></option>
+        <% }) %>
+    </select>
+    
+    <input type="hidden" name="location[latitude]" class="latitude" value="">
+    <input type="hidden" name="location[longitude]" class="longitude" value="">
+    
+    <button type="submit" id="searchButton">Search</button> 
+</form>  
+
+<script src="/scripts/searchHome.js"></script>

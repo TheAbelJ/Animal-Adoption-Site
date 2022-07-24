@@ -17,7 +17,6 @@ const rejected = function(){
 }
 
 const locationChange = function(){
-    console.log('testing')
     if(window.confirm("Use current device location to store location details?")){
         navigator.geolocation.getCurrentPosition(obtained,rejected,{enableHighAccuracy: true, maximumAge:0, timeout:30000});
     } 

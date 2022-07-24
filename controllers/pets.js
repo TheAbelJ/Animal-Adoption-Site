@@ -64,3 +64,38 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     await pet.save();
     res.redirect('/home');
 })
+
+//Update species list in js script petSearch.js in public to add a new pet to search
+module.exports.searchPet = catchAsync(async(req,res,next) =>{
+    const pet ={};
+    if(req.query.species==='dog'){
+        pet.species = 'dog';
+        pet.breeds = dogList;
+        pet.attributes = dogAttr;
+    } 
+    else if(req.query.species==='cat'){
+        pet.species = 'cat';
+        pet.breeds = catList;
+        pet.attributes = catAttr;
+    }    
+    else
+        return next(new ExpressError('Specify the species of pet', 400));
+    
+    const longitude = parseFloat(req.query.location.longitude);
+    const latitude = parseFloat(req.query.location.latitude);
+    const query = {species: pet.species}
+    //longitude, latitude, distance, query, resultCount
+    console.log(`longitude: ${longitude}, latitude: ${latitude}`)
+    
+    //if conditional for weird bug where longitude and latitude becomes NaN
+    if(Number.isNaN(longitude) || Number.isNaN(latitude)){
+        return res.render('pet/petSearch',{pet,species})
+    }
+    
+    const pets = await Pet.findByDistance(longitude,latitude,1000,query, 20);
+    pets.forEach(pet=>{
+        console.log(pet.distance);
+    })
+    console.log(pets)
+    res.render('pet/petSearch',{pet,species});
+})

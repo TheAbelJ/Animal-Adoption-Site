@@ -87,8 +87,48 @@ const PetSchema = new Schema({
 
 });
 
-PetSchema.post('findOneAndDelete', async function (pet) {
-    
+//index created as $geoNear in the aggregation pipeline requires a 2d or 2dsphere index
+PetSchema.index( { location : "2dsphere" } );
+
+//Static methods
+PetSchema.statics.findByDistance = function(longitude, latitude, distance, query, resultCount) { 
+    console.log(query);
+    console.log(`longitude: ${longitude}, latitude: ${latitude}`);
+    const unitValue = 1000;
+    return this.aggregate([
+        {
+            $geoNear: {
+                near: {
+                    type: 'Point',
+                    coordinates: [longitude, latitude]
+                },
+                query: query,
+                maxDistance: distance * unitValue, 
+                distanceField: 'distance',
+                distanceMultiplier: 1 / unitValue
+            }
+        },
+        //{ $match: { query } },
+        {
+            $project: {
+                _id: 1, 
+                distance: 1,
+                name: 1,
+                species:1,
+                location:1
+            }
+        },
+        {
+            $sort: {
+                distance: 1
+            }
+        },
+        { $limit: resultCount }
+    ]); 
+}
+
+//mongoose middleware
+PetSchema.post('findOneAndDelete', async function (pet) {  
     //deletes pet ids from their owners pet array
     if (pet.user) {
         await User.updateOne(

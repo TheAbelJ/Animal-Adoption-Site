@@ -22,6 +22,7 @@ const ExpressError = require('./utils/ExpressError');
 const Pet = require('./models/pets');
 const User = require('./models/users');
 const Shelter = require('./models/shelters')
+const {species} = require('./seeds/petbreeds')
 
 mongoose.connect('mongodb://127.0.0.1:27017/petRescue', {
 
@@ -83,7 +84,7 @@ app.use('/user',userRoute);
 app.use('/pet',petRoute)
 
 app.get(['/','/home'], (req, res) => {
-    res.render('home');
+    res.render('home',{species});
 });
 
 app.all('*', (req, res, next) => {
