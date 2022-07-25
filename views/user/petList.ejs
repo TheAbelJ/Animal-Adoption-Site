@@ -16,7 +16,11 @@
                         <li class="list-group-item"><b>Species: </b><%= pet.species %></li>
                         <li class="list-group-item"><b>Name: </b><%= pet.name %></li>
                         <li class="list-group-item"><b>Gender: </b><%= pet.gender==='M'?'Male':'Female' %></li>
-                        <li class="list-group-item"><b>Age: </b><%= pet.age %></li>
+                        <li class="list-group-item"><b>Age: </b><%= pet.age.years %> Years 
+                            <% if(pet.age.months){ %>
+                                <%= pet.age.months %>  Months
+                            <% } %>  
+                        </li>
                         <li class="list-group-item"><b>Weight(in kg): </b><%= pet.weight %></li>
                         <li class="list-group-item"><b>Primary Breed: </b><%= pet.breeds.primary %></li>
                         <% if (pet.breeds.secondary){ %> 

@@ -14,8 +14,13 @@ const PetSchema = new Schema({
         required:[true,'Name required']
     },
     age:{
-        type:Number,
-        required:[true,'Age required']
+        years:{
+            type:Number,
+            required:[true,'Age required']
+        },
+        months:{
+            type:Number
+        }
     },
     weight:Number,
     gender:{

@@ -19,13 +19,15 @@ module.exports.renderNewForm = (req,res)=>{
 
 module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     
-    const {petType,name,age,weight,gender,primaryBreed,secondaryBreed,attributes,
+    const {petType,name,petAge,weight,gender,primaryBreed,secondaryBreed,attributes,
             medicalIssues,description} = req.body;
     
     mixedBool=(secondaryBreed)?true:false;          //Setting boolean value for mixed if secondary breed selected
     ownerId = req.user._id;                         //setting user/shelterid to that of currently logged in user
     
-
+    const age ={};
+    age.years = petAge.years;
+    age.months = petAge.months
     let shelter_user = true;                       //true if owner is person. false if owner is shelter
     let owner = await User.findById(ownerId);       //find owner/shelter id
     if(!owner){
@@ -91,6 +93,8 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
         return res.redirect('/home')
     }
     
+    
+
     const query = {species: pet.species}
     //longitude, latitude, distance, query, resultCount
     console.log(`longitude: ${longitude}, latitude: ${latitude}`)
