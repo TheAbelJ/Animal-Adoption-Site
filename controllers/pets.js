@@ -67,7 +67,7 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
 
 //Update species list in js script petSearch.js in public to add a new pet to search
 module.exports.searchPet = catchAsync(async(req,res,next) =>{
-    const pet ={};
+    const pet ={};      //object to pass to search page
     if(req.query.species==='dog'){
         pet.species = 'dog';
         pet.breeds = dogList;
@@ -79,15 +79,23 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
         pet.attributes = catAttr;
     }    
     else
-        return next(new ExpressError('Specify the species of pet', 400));
+        return res.redirect('/home')
     
-    const longitude = parseFloat(req.query.location.longitude);
-    const latitude = parseFloat(req.query.location.latitude);
+    
+    let longitude,latitude;
+    try{
+        longitude = parseFloat(req.query.location.longitude);
+        latitude = parseFloat(req.query.location.latitude);
+    }
+    catch(e){
+        return res.redirect('/home')
+    }
+    
     const query = {species: pet.species}
     //longitude, latitude, distance, query, resultCount
     console.log(`longitude: ${longitude}, latitude: ${latitude}`)
     
-    //if conditional for weird bug where longitude and latitude becomes NaN
+    //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
     if(Number.isNaN(longitude) || Number.isNaN(latitude)){
         return res.render('pet/petSearch',{pet,species})
     }
