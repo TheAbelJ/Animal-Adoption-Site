@@ -5,7 +5,7 @@ const Pet  = require('../models/pets')
 const User = require('../models/users');
 const Shelter = require('../models/shelters')
 
-const {species,dogList,dogAttr,catList,catAttr}=require('../seeds/petbreeds')
+const {species,petList,dogList,dogAttr,catList,catAttr}=require('../seeds/petbreeds')
 
 //Update species list in js script validateForms.js in public to add a new pet
 module.exports.renderNewForm = (req,res)=>{
@@ -94,17 +94,31 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     
     
     console.log(req.query);
-    const query = {species: pet.species};
+    const filter ={};
+    if(req.query.primaryBreed)
+        filter.primary = [req.query.primaryBreed];
+    else
+        filter.primary = petList;
     
-    //longitude, latitude, distance, query, resultCount
-    console.log(`longitude: ${longitude}, latitude: ${latitude}`)
+    if(req.query.secondaryBreed)
+        filter.secondary = [req.query.secondaryBreed];
+    else
+        filter.secondary = petList;
+    
+    if(req.query.pureBred)
+        filter.pureBred = [req.query.pureBred];
+    else
+        filter.pureBred = [true,false];
+    //console.log(`longitude: ${longitude}, latitude: ${latitude}`)
     
     //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
     if(Number.isNaN(longitude) || Number.isNaN(latitude)){
         return res.render('pet/petSearch',{pet,species})
     }
     
-    const pets = await Pet.findByDistance(longitude,latitude,1000,query, 20);
+    const query = {species: pet.species}
+    //longitude, latitude, distance, query, resultCount, filterParameters
+    const pets = await Pet.findByDistance(longitude,latitude,1000,query, 20, filter);
     pets.forEach(pet=>{
         console.log(pet.distance);
     })

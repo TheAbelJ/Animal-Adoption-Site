@@ -96,10 +96,10 @@ const PetSchema = new Schema({
 PetSchema.index( { location : "2dsphere" } );
 
 //Static methods
-PetSchema.statics.findByDistance = function(longitude, latitude, distance, query, resultCount) { 
-    console.log(query);
-    console.log(`longitude: ${longitude}, latitude: ${latitude}`);
+PetSchema.statics.findByDistance = function(longitude, latitude, distance, query, resultCount,filter) { 
+    //console.log(`longitude: ${longitude}, latitude: ${latitude}`);
     const unitValue = 1000;
+    
     return this.aggregate([
         {
             $geoNear: {
@@ -113,7 +113,9 @@ PetSchema.statics.findByDistance = function(longitude, latitude, distance, query
                 distanceMultiplier: 1 / unitValue
             }
         },
-        //{ $match: { query } },
+        { $match: { 'breeds.primary':{$in:filter.primary} } },
+        { $match: { 'breeds.secondary':{$in:filter.secondary} } },
+        
         {
             $project: {
                 _id: 1, 
