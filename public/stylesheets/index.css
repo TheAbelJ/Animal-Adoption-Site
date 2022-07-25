@@ -100,6 +100,41 @@ footer {
   display: none;
 }
 
+.searchSectionWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.searchSectionWrapper .searchSection {
+  max-width: 75%;
+  display: flex;
+  margin: auto;
+  list-style-type: none;
+  flex-direction: row;
+}
+.searchSectionWrapper .searchSection :hover {
+  border: 10px solid #4361EE;
+}
+.searchSectionWrapper .searchSection .searchElements {
+  background-color: #F2F2F2;
+  border-radius: 20%;
+  margin: 0 1rem;
+  padding: 1em;
+  border-color: #4361EE;
+  border-width: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
+}
+.searchSectionWrapper .searchSection .searchElements .petLabel {
+  font-size: 1.5rem;
+}
+.searchSectionWrapper .searchSection .searchElements :hover {
+  border: none;
+}
+
 /* index.scss by forwards all files from components folder. index.scss is by default and no need to specify during @use */
 * {
   box-sizing: border-box;

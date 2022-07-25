@@ -1,17 +1,39 @@
 <% layout('/layouts/boilerplate') %> 
 
-<form action="/pet/search" method="GET">
-        
-    <select class="form-select" name="species" id="selectedSpecies"required>
+<form action="/pet/search" class="hidden" method="GET">    
+    <select class="form-select" id="petSelect" name="species" id="selectedSpecies"required>
         <% species.forEach((petSpecies,index) =>{ %> 
             <option value="<%= petSpecies %>" <%= index===0? 'selected':''  %>><%= petSpecies %></option>
         <% }) %>
     </select>
-    
     <input type="hidden" name="location[latitude]" class="latitude" value="">
     <input type="hidden" name="location[longitude]" class="longitude" value="">
-    
     <button type="submit" id="searchButton">Search</button> 
 </form>  
+
+<div class ="searchSectionWrapper">
+    <section>
+        <div>
+            <ul class="searchSection">
+                <li class="searchElements">
+                    <img src="/svg/dog.svg" alt="Search Dog" style="width: 80%;height:80%;">
+                    <span class="petLabel">Dog</span>
+                </li>
+                <li class="searchElements">
+                    <img src="/svg/cat.svg" alt="Search Cat" style="width: 80%;height:80%;">
+                    <span class="petLabel">Cat</span>
+                </li>
+                <li class="searchElements">
+                    <img src="/svg/other.svg" alt="Search Other Pets" style="width: 65%;height:65%;">
+                    <span class="petLabel">Other</span>
+                </li>
+                <li class="searchElements">
+                    <img src="/svg/shelter.svg" alt="Search Dog" style="width: 70%;height:70%;">
+                    <span class="petLabel">Shelter</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
 
 <script src="/scripts/searchHome.js"></script>

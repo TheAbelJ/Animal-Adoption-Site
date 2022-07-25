@@ -67,7 +67,6 @@ module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     res.redirect('/home');
 })
 
-//Update species list in js script petSearch.js in public to add a new pet to search
 module.exports.searchPet = catchAsync(async(req,res,next) =>{
     const pet ={};      //object to pass to search page
     if(req.query.species==='dog'){
@@ -94,8 +93,9 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     }
     
     
-
-    const query = {species: pet.species}
+    console.log(req.query);
+    const query = {species: pet.species};
+    
     //longitude, latitude, distance, query, resultCount
     console.log(`longitude: ${longitude}, latitude: ${latitude}`)
     
