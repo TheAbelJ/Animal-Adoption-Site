@@ -2,17 +2,28 @@
 
 <div>   
     <form action="/pet/search" method="GET">
-        
-        <select class="form-select" name="species" id="selectedSpecies"required>
-            <% species.forEach(petSpecies =>{ %> 
-                <option value="<%= petSpecies %>" <%= petSpecies===pet.species? 'selected':''  %>><%= petSpecies %></option>
-            <% }) %>
-        </select>
+        <div class="row">
+            <div class="col">
+                <select class="form-select" name="species" id="selectedSpecies"required>
+                    <% species.forEach(petSpecies =>{ %> 
+                        <option value="<%= petSpecies %>" <%= petSpecies===pet.species? 'selected':''  %>><%= petSpecies %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="col">
+                <select name="distance" id="distance" class="form-select">
+                    <% distanceValues.forEach(dist =>{ %>
+                        <option value="<%= dist %>" <%= dist===distance? 'selected':''  %>> <%= dist===4000? 'Anywhere':dist %></option>
+                    <%   }) %> 
+                </select>
+            </div>
+            
+        </div>   
 
         <input type="hidden" name="location[latitude]" class="latitude" value="">
         <input type="hidden" name="location[longitude]" class="longitude" value="">
         
-        <button type="submit" id="searchButton" class="btn btn-success m-3 ">Search</button> 
+        <button type="submit" id="searchButton" class="btn btn-success m-3 hidden">Search</button> 
     </form>  
     
 </div>
@@ -24,48 +35,62 @@
                 <input type="hidden" name="species" value="<%= pet.species %>">
                 <input type="hidden" name="location[latitude]" class="latitude" value="">
                 <input type="hidden" name="location[longitude]" class="longitude" value="">
+                <input type="hidden" name="distance" id="hiddenDistance" value="">
                 
                 <span>Breed</span>
                 <select class="form-select mb-3 mt-2" name="primaryBreed">
                     <option value="">Primary Breed</option>
                     <% pet.breeds.forEach((breed)=>{ %>
-                        <option value="<%=breed%>"><%= breed %></option>
+                        <option value="<%=breed%>" <%= breed===prevFormData.primaryBreed? "selected":"" %>><%= breed %></option>
                     <% }) %>
                 </select>
                 <select class="form-select mb-3 mt-2" name="secondaryBreed">
-                    <option value="">secondary Breed</option>
+                    <option value="">Secondary Breed</option>
                     <% pet.breeds.forEach((breed)=>{ %>
-                        <option value="<%=breed%>"><%= breed %></option>
+                        <option value="<%=breed%>" <%= breed===prevFormData.secondaryBreed? "selected":"" %>><%= breed %></option>
                     <% }) %>
                 </select>
                 
-                <label class="form-label" for="pureBred">Purebred</label>
+                <label class="form-label" >Purebred</label>
                 <div class="row d-flex justify-content-start">
                     <div class="col ml-4 mb-2 form-check ">
-                        <input class="form-check-input" type="radio" name="pureBred" id="pureBred" value="true" >
-                        <label class="form-check-label font-weight-normal" for="pureBred" style="margin-left: -9rem">Yes</label>
+                        <input class="form-check-input pureBred" type="radio" name="pureBred" id="pureBredTrue" value="true" >
+                        <label class="form-check-label font-weight-normal" for="pureBredTrue" style="margin-left: -9rem">Yes</label>
                     </div>
                     <div class="col ml-4 mb-2 form-check">
-                        <input class="form-check-input" type="radio" name="pureBred" id="pureBred" value="false">
-                        <label class="form-check-label font-weight-normal" for="pureBred" style="margin-left: -9rem">No</label>
+                        <input class="form-check-input pureBred" type="radio" name="pureBred" id="pureBredFalse" value="false">
+                        <label class="form-check-label font-weight-normal" for="pureBredFalse" style="margin-left: -9rem">No</label>
+                    </div>
+                    <input type="hidden" name="hiddenRadioSelect" id="hiddenRadioSelect" value=<%= (prevFormData.pureBred)?  prevFormData.pureBred==='true'? 'true':'false'  : '' %>>
+                    <div class="col ml-4 mb-2">
+                        <button class="btn btn-secondary" id ="resetPureBred" type="button"> Reset</button>
                     </div>
                 </div>
 
                 <label class="form-label" for="minAge">Age (years)</label>
-                    <div class="row d-flex justify-content-between align-items-center">
-                        <div class="mb-3 col-5">
-                            <input id="minAge" name="age[min]" class="form-control" type="number" min="0" max="100" placeholder="Min">
-                        </div>
-                        <div class="mb-3 col-2 text-center font-weight-normal"><span>to</span></div>
-                        <div class="mb-3 col-5">
-                            <input id="maxAge" name="age[max]" class="form-control" type="number" min="0" max="100" placeholder="Max">
-                        </div>
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="mb-3 col-5">
+                        <input id="minAge" name="minAge" class="form-control" type="number" min="0" max="100" placeholder="Min" value=<%= prevFormData.minAge %>>
                     </div>
+                    <div class="mb-3 col-2 text-center font-weight-normal"><span>to</span></div>
+                    <div class="mb-3 col-5">
+                        <input id="maxAge" name="maxAge" class="form-control" type="number" min="0" max="100" placeholder="Max" value=<%= prevFormData.maxAge %>>
+                    </div>
+                </div>
                     
-                    
+                <label class="form-label" for="minWeight">Weight (kg)</label>
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="mb-3 col-5">
+                        <input id="minWeight" name="minWeight" class="form-control" type="number" min="0" max="200" placeholder="Min" value=<%= prevFormData.minWeight%>>
+                    </div>
+                    <div class="mb-3 col-2 text-center font-weight-normal"><span>to</span></div>
+                    <div class="mb-3 col-5">
+                        <input id="maxWeight" name="maxWeight" class="form-control" type="number" min="0" max="200" placeholder="Max" value=<%= prevFormData.maxWeight %>>
+                    </div>
+                </div>    
         
                 <div class="row d-flex justify-content-center">
-                    <button type="submit" class="btn btn-success m-3 col-lg-2 col-3">Search</button>
+                    <button type="submit" id="searchButton2" class="btn btn-success m-3 col-lg-2 col-3">Search</button>
                 </div>
             </form>
         </div>

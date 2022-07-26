@@ -1,10 +1,24 @@
 const searchButton = document.querySelector('#searchButton');
+const searchButton2 = document.querySelector('#searchButton2');
 const selectedSpecies = document.querySelector('#selectedSpecies');
+const distance = document.querySelector('#distance');
+const hiddenDistance = document.querySelector('#hiddenDistance');
+const resetPureBredButton = document.querySelector('#resetPureBred');
+const hiddenRadioSelect = document.querySelector('#hiddenRadioSelect')
+const PureBredRadio = document.querySelectorAll('.pureBred');
 
 const triggerSearch = function(){
     searchButton.click();
 }
+
+const populateHiddenDistance = function(e){
+    hiddenDistance.value = e.currentTarget.value;
+    searchButton2.click();
+}
+
 selectedSpecies.addEventListener('change',triggerSearch);
+distance.addEventListener('change',populateHiddenDistance);
+
 
 
 //get location
@@ -39,4 +53,28 @@ const locationChange = function(){
     navigator.geolocation.getCurrentPosition(obtained,rejected,{enableHighAccuracy: true, maximumAge:0, timeout:30000});
 }
 
+const setPureBred = function(){
+    if(hiddenRadioSelect.value){
+        if(hiddenRadioSelect.value==='true'){
+            const pureBredTrue = document.querySelector('#pureBredTrue');
+            pureBredTrue.checked = 'true';
+        }
+        else{
+            const pureBredFalse = document.querySelector('#pureBredFalse');
+            pureBredFalse.checked = 'true';
+        }
+    }
+}
+
 locationChange();
+setPureBred();
+
+//reset the pureBred form fields values
+
+const resetPureBred = function(){
+    PureBredRadio.forEach(radio => radio.checked = false);
+}
+
+resetPureBredButton.addEventListener('click',resetPureBred);
+
+

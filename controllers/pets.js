@@ -83,18 +83,24 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
         return res.redirect('/home')
     
     
-    let longitude,latitude;
+    let longitude,latitude,distance;
     try{
         longitude = parseFloat(req.query.location.longitude);
         latitude = parseFloat(req.query.location.latitude);
     }
     catch(e){
-        return res.redirect('/home')
+        console.log(`error in longitude, latitude calculation, ${e}`);
+        return res.redirect('/home');
     }
-    
-    
+    if(req.query.distance)
+        distance = parseInt(req.query.distance);
+    else
+        distance = 4000;
+    distanceValues = [5,10,25,50,100,4000]
+
     console.log(req.query);
     const filter ={};
+    petList.push("");       //for when either primary or secondary breeds empty
     if(req.query.primaryBreed)
         filter.primary = [req.query.primaryBreed];
     else
@@ -105,23 +111,39 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     else
         filter.secondary = petList;
     
-    if(req.query.pureBred)
-        filter.pureBred = [req.query.pureBred];
+    if(req.query.pureBred){
+        const boolValue = !(req.query.pureBred === 'true');
+        filter.mixed = [boolValue];
+    }
     else
-        filter.pureBred = [true,false];
-    //console.log(`longitude: ${longitude}, latitude: ${latitude}`)
+        filter.mixed = [true,false];
     
-    //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
+    if(req.query.minAge)
+        filter.minAge = parseInt(req.query.minAge);
+    else
+        filter.minAge = 0;
+    if(req.query.maxAge)
+        filter.maxAge = parseInt(req.query.maxAge);
+    else
+        filter.maxAge = 100;
+    
+    if(req.query.minWeight)
+        filter.minWeight = parseInt(req.query.minWeight);
+    else
+        filter.minWeight = 0;
+    if(req.query.maxWeight)
+        filter.maxWeight = parseInt(req.query.maxWeight);
+    else
+        filter.maxWeight = 200;
+    
+        //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
     if(Number.isNaN(longitude) || Number.isNaN(latitude)){
         return res.render('pet/petSearch',{pet,species})
     }
     
     const query = {species: pet.species}
     //longitude, latitude, distance, query, resultCount, filterParameters
-    const pets = await Pet.findByDistance(longitude,latitude,1000,query, 20, filter);
-    pets.forEach(pet=>{
-        console.log(pet.distance);
-    })
+    const pets = await Pet.findByDistance(longitude,latitude,distance,query, 20, filter);
     console.log(pets)
-    res.render('pet/petSearch',{pet,species});
+    res.render('pet/petSearch',{pet,species,distance,distanceValues,prevFormData:req.query});
 })
