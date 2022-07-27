@@ -1,5 +1,5 @@
 <% layout('/layouts/boilerplate') %> 
-
+<%- include('./partials/navbar')  %> 
 <form action="/pet/search" class="hidden" method="GET">    
     <select class="form-select" id="petSelect" name="species" id="selectedSpecies"required>
         <% species.forEach((petSpecies,index) =>{ %> 

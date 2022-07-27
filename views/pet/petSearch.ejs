@@ -1,36 +1,40 @@
 <% layout('./layouts/boilerplate') %>
 
-<div>   
-    <form action="/pet/search" method="GET">
-        <div class="row">
-            <div class="col">
-                <select class="form-select" name="species" id="selectedSpecies"required>
-                    <% species.forEach(petSpecies =>{ %> 
-                        <option value="<%= petSpecies %>" <%= petSpecies===pet.species? 'selected':''  %>><%= petSpecies %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div class="col">
-                <select name="distance" id="distance" class="form-select">
-                    <% distanceValues.forEach(dist =>{ %>
-                        <option value="<%= dist %>" <%= dist===distance? 'selected':''  %>> <%= dist===4000? 'Anywhere':dist %></option>
-                    <%   }) %> 
-                </select>
-            </div>
+<div class="container-fluid mr-0 ml-0 pl-0 pr-0 border-left-0 border-right-0 navigation-container align-items-center">
+    <nav>   
+            <form action="/pet/search" method="GET" >
+                <div class="row d-flex justify-content-end align-items-center">
+                    <div class="col-2 mr-auto ml-3 ">
+                        <span class="home-text"><b>HOME</b></span>
+                    </div>
+                    <div class="col-2 mr-0 pr-0 border-right-0">
+                        <select name="species" id="selectedSpecies" class="form-select form-select-lg color-select border-right-0 border-top-0 shadow-none" required>
+                            <% species.forEach(petSpecies =>{ %> 
+                                <option value="<%= petSpecies %>" <%= petSpecies===pet.species? 'selected':''  %>><%= petSpecies %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-2 ml-0 pl-0 border-left-0">
+                        <select name="distance" id="distance" class="form-select form-select-lg color-select border-left-0  border-top-0 shadow-none">
+                            <% distanceValues.forEach(dist =>{ %>
+                                <option value="<%= dist %>" <%= dist===distance? 'selected':''  %>> <%= dist===4000? 'Anywhere':dist %></option>
+                            <%   }) %> 
+                        </select>
+                    </div>  
             
-        </div>   
-
-        <input type="hidden" name="location[latitude]" class="latitude" value="">
-        <input type="hidden" name="location[longitude]" class="longitude" value="">
-        
-        <button type="submit" id="searchButton" class="btn btn-success m-3 hidden">Search</button> 
-    </form>  
-    
+                    <input type="hidden" name="location[latitude]" class="latitude" value="">
+                    <input type="hidden" name="location[longitude]" class="longitude" value="">
+                    
+                    <button type="submit" id="searchButton" class="btn btn-success m-3 hidden">Search</button> 
+                </div>
+            </form>
+        </div>
+    </nav>     
 </div>
 
-<div class="mt-3 container" >
+<div class="mt-5 ml-1 mr-1  d-flex">
     <div class="row">
-        <div class="col-6 ml-3 text-center font-weight-bold">
+        <div class="col-3 ml-3 text-center font-weight-bold">
             <form action="/pet/search" class="validated-form" method="GET" novalidate>
                 <input type="hidden" name="species" value="<%= pet.species %>">
                 <input type="hidden" name="location[latitude]" class="latitude" value="">
@@ -53,7 +57,7 @@
                 
                 <label class="form-label" >Purebred</label>
                 <div class="row d-flex justify-content-start">
-                    <div class="col ml-4 mb-2 form-check ">
+                    <div class="col ml-2 mb-2 form-check ">
                         <input class="form-check-input pureBred" type="radio" name="pureBred" id="pureBredTrue" value="true" >
                         <label class="form-check-label font-weight-normal" for="pureBredTrue" >Yes</label>
                     </div>
@@ -62,41 +66,62 @@
                         <label class="form-check-label font-weight-normal" for="pureBredFalse" >No</label>
                     </div>
                     <input type="hidden" name="hiddenRadioSelect" id="hiddenRadioSelect" value=<%= (prevFormData.pureBred)?  prevFormData.pureBred==='true'? 'true':'false'  : '' %>>
-                    <div class="col ml-4 mb-2">
-                        <button class="btn btn-secondary" id ="resetPureBred" type="button"> Reset</button>
+                    <div class="col  mb-2">
+                        <button class="btn btn-secondary btn-sm" id ="resetPureBred" type="button"> Reset</button>
                     </div>
                 </div>
 
                 <label class="form-label" for="minAge">Age (years)</label>
                 <div class="row d-flex justify-content-between align-items-center">
-                    <div class="mb-3 col-5">
+                    <div class="mb-3 col">
                         <input id="minAge" name="minAge" class="form-control" type="number" min="0" max="100" placeholder="Min" value=<%= prevFormData.minAge %>>
                     </div>
-                    <div class="mb-3 col-2 text-center font-weight-normal"><span>to</span></div>
-                    <div class="mb-3 col-5">
+                    <div class="mb-3 col-1  pl-0 pr-0 text-center font-weight-normal"><span>to</span></div>
+                    <div class="mb-3 col">
                         <input id="maxAge" name="maxAge" class="form-control" type="number" min="0" max="100" placeholder="Max" value=<%= prevFormData.maxAge %>>
                     </div>
                 </div>
                     
                 <label class="form-label" for="minWeight">Weight (kg)</label>
                 <div class="row d-flex justify-content-between align-items-center">
-                    <div class="mb-3 col-5">
+                    <div class="mb-3 col">
                         <input id="minWeight" name="minWeight" class="form-control" type="number" min="0" max="200" placeholder="Min" value=<%= prevFormData.minWeight%>>
                     </div>
-                    <div class="mb-3 col-2 text-center font-weight-normal"><span>to</span></div>
-                    <div class="mb-3 col-5">
+                    <div class="mb-3 col-1  pl-0 pr-0 text-center font-weight-normal"><span>to</span></div>
+                    <div class="mb-3 col">
                         <input id="maxWeight" name="maxWeight" class="form-control" type="number" min="0" max="200" placeholder="Max" value=<%= prevFormData.maxWeight %>>
                     </div>
                 </div>    
         
                 <div class="row d-flex justify-content-center">
-                    <button type="submit" id="searchButton2" class="btn btn-success m-3 col-lg-2 col-3">Search</button>
+                    <button type="submit" id="searchButton2" class="btn btn-success m-3 col-4">Search</button>
                 </div>
             </form>
         </div>
-        
-    </div>
-    
+        <div class="v-divider col-1"></div>
+        <div class="col-8">
+            <div class="row">
+                <% for (let foundPet of pets){ %>
+                    <div class="col-4 mt-5 mb-4">
+                        <div class="card pet-card text-center" id="<%= foundPet._id %>">
+                            <img class="card-img-top autofit" src="<%= foundPet.image.url %>" alt="Pet photo">
+                            <div class="card-body">
+                              <h5 class="card-title"><b><%= foundPet.name[0].toUpperCase()+foundPet.name.slice(1) %></b></h5>
+                              <p class="card-text">
+                                <%= foundPet.age.years!==0? `${foundPet.age.years} years, `: `${foundPet.age.months} months, ` %>
+                                <%= foundPet.breeds.primary %> <%= foundPet.breeds.mixed? ` & ${foundPet.breeds.secondary}`:"" %> 
+                            </p>
+                            <p><%= `${parseInt(foundPet.distance)} km away` %>  </p>
+                            <span id="petId" class="hidden"> </span>
+                            </div>
+                          </div>
+                    </div>      
+                <% } %>  
+            </div>
+
+        </div>    
+    </div> 
 </div>
+
 
 <script src="/scripts/petSearch.js"></script>

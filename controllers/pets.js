@@ -17,6 +17,11 @@ module.exports.renderNewForm = (req,res)=>{
     res.render('pet/newPet',{species,petList:[""],pet:'pet',attributes:[""]})
 }
 
+module.exports.renderPetDetails = catchAsync(async (req,res) =>{
+    const pet = await Pet.findById(req.params.pet);
+    res.render('pet/petDetails',{pet});
+})
+
 module.exports.createNewPet = catchAsync(async (req,res,next)=>{
     
     const {petType,name,petAge,weight,gender,primaryBreed,secondaryBreed,attributes,
@@ -145,5 +150,5 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     //longitude, latitude, distance, resultCount, filterParameters
     const pets = await Pet.findByDistance(longitude,latitude,distance, 20, filter);
     console.log(pets)
-    res.render('pet/petSearch',{pet,species,distance,distanceValues,prevFormData:req.query});
+    res.render('pet/petSearch',{pet,species,distance,distanceValues,pets,prevFormData:req.query});
 })

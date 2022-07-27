@@ -1,5 +1,9 @@
 import navslide from './navbar.js';
 import formValidate from './validateForms.js';
 
-navslide();
+try{
+    navslide();
+}catch(ex){
+    //nothing
+}
 formValidate();

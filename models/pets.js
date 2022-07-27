@@ -40,7 +40,7 @@ const PetSchema = new Schema({
         },
         mixed:Boolean
     },
-    attributes:{
+    attributes:{                        //these attributes are to be updated in petDetails page to list all attributes
         spayed_neutered:Boolean,
         house_trained:Boolean,
         declawed:Boolean,
@@ -126,7 +126,9 @@ PetSchema.statics.findByDistance = function(longitude, latitude, distance, resul
                 distance: 1,
                 name: 1,
                 species:1,
-                location:1
+                breeds:1,
+                age:1,
+                image:1
             }
         },
         {

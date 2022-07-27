@@ -1,6 +1,8 @@
 @use 'components' as *;  /* index.scss by forwards all files from components folder. index.scss is by default and no need to specify during @use */
 @use 'variables' as *;
 @use 'home' as *;
+@use 'searchPage' as *;
+@use 'petDetails' as *;
 
 *{
     box-sizing:border-box;
@@ -11,3 +13,5 @@
 .hidden{
     display:none;
 }
+
+//all img tags are set to fixed height,width in petDetails.weird bug with images in petSearchPage.

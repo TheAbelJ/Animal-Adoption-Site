@@ -13,4 +13,6 @@ router.post('/new/:pet',isLoggedIn,upload.single('image'),pets.createNewPet);
 
 router.get('/search/',pets.searchPet);
 
+router.get('/details/:pet',pets.renderPetDetails);
+
 module.exports = router;

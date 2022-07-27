@@ -1,0 +1,49 @@
+<% layout('./layouts/boilerplate') %>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height:100vh;">
+    <div class="row d-flex justify-content-center">
+            <div class="card col-xs-10 col-md-5 mt-3 mb-3 ml-2 mr-2">
+
+                <img class="expand-image"  src="<%= pet.image.url%>" class="d-block w-100" alt="">
+
+                <div class="card-body">
+                  <h5 class="card-title text-center font-weight-bold"><%= pet.name[0].toUpperCase()+pet.name.slice(1) %></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Gender: </b><%= pet.gender==='M'?'Male':'Female' %></li>
+                    <li class="list-group-item"><b>Age: </b><%= pet.age.years %> Years 
+                        <% if(pet.age.months){ %>
+                            <%= pet.age.months %>  Months
+                        <% } %>  
+                    </li>
+                    <li class="list-group-item"><b>Weight(in kg): </b><%= pet.weight %></li>
+                    <li class="list-group-item"><b>Primary Breed: </b><%= pet.breeds.primary %></li>
+                    <% if (pet.breeds.secondary){ %> 
+                        <li class="list-group-item"><b>Secondary Breed: </b><%= pet.breeds.secondary %></li>
+                    <% } %>
+                    <li class="list-group-item"><b>Phone: </b><%= pet.contact.phone%></li>
+                    <li class="list-group-item"><b>Email: </b><%= pet.contact.email%></li>
+                </ul>
+                <div class="card-body">
+                    <h5><b>Description</b></h5>
+                    <%= pet.description %> 
+                </div>
+                    <div class="card-body">
+                        <h5><b><%= `${pet.name} is`%></b></h5>
+                        <%= pet.attributes.spayed_neutered? pet.gender==='M'? 'Neutered, ':'Spayed, ' : '' %>
+                        <%= pet.attributes.house_trained? 'House Trained, ':''%>
+                        <%= pet.attributes.declawed? 'Declawed, ':''  %>
+                        <%= pet.attributes.shots_current? 'Vaccinated, ':''  %>
+                        <%= pet.attributes.leash_trained? 'Leash Trained':''  %> 
+                    </div>
+                <% if (pet.medicalIssues){ %>
+                    <div class="card-body">
+                        <h5><b>Medical Issues</b></h5>
+                        <%= pet.medicalIssues %> 
+                    </div>
+                <% } %>  
+                <div class="card-body">
+                </div>
+              </div>
+    </div>
+</div>

@@ -135,6 +135,49 @@ footer {
   border: none;
 }
 
+body {
+  overflow-x: hidden;
+}
+
+img {
+  height: 230px;
+  width: 230px;
+  object-fit: cover;
+}
+
+.v-divider {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 1px;
+  height: 100%;
+  border-left: 1px solid gray;
+}
+
+.pet-card {
+  margin-right: 40px;
+  border-radius: 5%;
+  cursor: pointer;
+}
+
+.navigation-container {
+  width: 100%;
+}
+.navigation-container .home-text {
+  color: #4361EE;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.navigation-container .color-select {
+  background-color: #4361EE;
+  color: rgb(226, 226, 226);
+  border-radius: 0%;
+}
+
+.expand-image {
+  width: 100%;
+  height: auto;
+}
+
 /* index.scss by forwards all files from components folder. index.scss is by default and no need to specify during @use */
 * {
   box-sizing: border-box;
