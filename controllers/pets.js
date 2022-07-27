@@ -78,7 +78,7 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
         pet.species = 'cat';
         pet.breeds = catList;
         pet.attributes = catAttr;
-    }    
+    }     
     else
         return res.redirect('/home')
     
@@ -136,14 +136,14 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     else
         filter.maxWeight = 200;
     
-        //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
+    //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
     if(Number.isNaN(longitude) || Number.isNaN(latitude)){
         return res.render('pet/petSearch',{pet,species})
     }
     
-    const query = {species: pet.species}
-    //longitude, latitude, distance, query, resultCount, filterParameters
-    const pets = await Pet.findByDistance(longitude,latitude,distance,query, 20, filter);
+    filter.species= pet.species;
+    //longitude, latitude, distance, resultCount, filterParameters
+    const pets = await Pet.findByDistance(longitude,latitude,distance, 20, filter);
     console.log(pets)
     res.render('pet/petSearch',{pet,species,distance,distanceValues,prevFormData:req.query});
 })
