@@ -102,6 +102,7 @@ footer {
 
 .searchSectionWrapper {
   display: flex;
+  height: 80vh;
   flex-direction: row;
   justify-content: center;
 }
@@ -133,6 +134,16 @@ footer {
 }
 .searchSectionWrapper .searchSection .searchElements :hover {
   border: none;
+  cursor: pointer;
+}
+
+.home-button {
+  background-color: #4361EE;
+  color: rgb(226, 226, 226);
+}
+.home-button:hover {
+  background-color: white;
+  color: #4361EE;
 }
 
 body {
@@ -168,9 +179,9 @@ img {
   cursor: pointer;
 }
 .navigation-container .color-select {
-  background-color: #4361EE;
-  color: rgb(226, 226, 226);
+  color: #4361EE;
   border-radius: 0%;
+  border: none;
 }
 
 .expand-image {

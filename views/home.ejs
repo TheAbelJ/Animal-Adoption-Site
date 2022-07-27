@@ -1,5 +1,14 @@
 <% layout('/layouts/boilerplate') %> 
-<%- include('./partials/navbar')  %> 
+
+<div class="pb-2 mt-4 d-flex justify-content-end">
+    <!-- <button class="btn btn-lg home-button mr-5" id="logoutButton">Logout</button> -->
+    <% if(!currentUser){ %>  
+    <button class="btn btn-lg home-button mr-5" id="registerButton">Register</button>
+    <% } %>
+   
+    <button class="btn btn-lg home-button mr-5" id="loginButton"><%= currentUser? "Logout":"Login" %> </button>
+</div>
+
 <form action="/pet/search" class="hidden" method="GET">    
     <select class="form-select" id="petSelect" name="species" id="selectedSpecies"required>
         <% species.forEach((petSpecies,index) =>{ %> 
@@ -11,7 +20,8 @@
     <button type="submit" id="searchButton">Search</button> 
 </form>  
 
-<div class ="searchSectionWrapper">
+
+<div class ="searchSectionWrapper d-flex align-items-center justify-content-center">
     <section>
         <div>
             <ul class="searchSection">

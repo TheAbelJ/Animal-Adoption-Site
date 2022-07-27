@@ -32,8 +32,8 @@ img{
         cursor: pointer;
     }
     .color-select{
-        background-color: $primarycolor;
-        color: $offwhite;
-        border-radius: 0%;   
+        color: $primarycolor;
+        border-radius: 0%;
+        border:none;   
     }
 }

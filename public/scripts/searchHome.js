@@ -45,3 +45,43 @@ const locationChange = function(event){
 }
 
 searchElements.forEach(searchElement=> searchElement.addEventListener('click',locationChange));
+
+//Section for login,register and logout buttons to navigate to another page
+
+const indexOfNth = (string, char, nth, fromIndex = 0) => {
+    const indexChar = string.indexOf(char, fromIndex);
+    if (indexChar === -1) {
+      return -1;
+    } else if (nth === 1) {
+      return indexChar;
+    } else {
+      return indexOfNth(string, char, nth - 1, indexChar + 1);
+    }
+}
+
+const loginButton = document.querySelector('#loginButton');
+const registerButton = document.querySelector('#registerButton');
+const profileButton = document.querySelector('#profileButton');
+
+const urlSlashIndex = indexOfNth(window.location.href,'/',3);
+let newUrlBeginning = window.location.href.slice(0, urlSlashIndex);
+let newUrl;
+
+loginButton.addEventListener('click',function(e){
+    if(e.currentTarget.innerText==='Login')
+        newUrl = newUrlBeginning.concat('/user/login');
+    else
+        newUrl = newUrlBeginning.concat('/user/logout');
+    window.location.href = newUrl;
+    
+})
+
+registerButton.addEventListener('click',function(){
+    const newUrl = newUrlBeginning.concat('/user/register');
+    window.location.href = newUrl;
+})
+
+profileButton.addEventListener('click',function(){
+    const newUrl = newUrlBeginning.concat('/user/profile');
+    window.location.href = newUrl;
+})

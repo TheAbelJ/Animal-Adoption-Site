@@ -1,0 +1,10 @@
+@use '../variables' as *;
+
+.home-button{
+    background-color: $primarycolor;
+    color: $offwhite;
+    &:hover{
+        background-color: white;
+        color: $primarycolor;
+    }
+}
