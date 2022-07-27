@@ -40,7 +40,6 @@ const locationChange = function(event){
     else
         return;
     
-    console.log(petSelect.value);
     navigator.geolocation.getCurrentPosition(obtained,rejected,{enableHighAccuracy: true, maximumAge:0, timeout:30000});
 }
 
@@ -61,7 +60,7 @@ const indexOfNth = (string, char, nth, fromIndex = 0) => {
 
 const loginButton = document.querySelector('#loginButton');
 const registerButton = document.querySelector('#registerButton');
-const profileButton = document.querySelector('#profileButton');
+const profile = document.querySelector('#profile');
 
 const urlSlashIndex = indexOfNth(window.location.href,'/',3);
 let newUrlBeginning = window.location.href.slice(0, urlSlashIndex);
@@ -76,12 +75,15 @@ loginButton.addEventListener('click',function(e){
     
 })
 
-registerButton.addEventListener('click',function(){
-    const newUrl = newUrlBeginning.concat('/user/register');
+registerButton.addEventListener('click',function(e){
+    if(e.currentTarget.innerText==='Register')
+        newUrl = newUrlBeginning.concat('/user/register');
+    else
+        newUrl = newUrlBeginning.concat('/user/profile');
     window.location.href = newUrl;
 })
 
-profileButton.addEventListener('click',function(){
-    const newUrl = newUrlBeginning.concat('/user/profile');
+profile.addEventListener('click',function(){
+    newUrl = newUrlBeginning.concat('/user/pets');
     window.location.href = newUrl;
 })

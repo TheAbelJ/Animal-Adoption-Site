@@ -1,11 +1,8 @@
 <% layout('/layouts/boilerplate') %> 
-
 <div class="pb-2 mt-4 d-flex justify-content-end">
     <!-- <button class="btn btn-lg home-button mr-5" id="logoutButton">Logout</button> -->
-    <% if(!currentUser){ %>  
-    <button class="btn btn-lg home-button mr-5" id="registerButton">Register</button>
-    <% } %>
-   
+    
+    <button class="btn btn-lg home-button mr-5" id="registerButton"><%= currentUser? "Profile":"Register" %></button>
     <button class="btn btn-lg home-button mr-5" id="loginButton"><%= currentUser? "Logout":"Login" %> </button>
 </div>
 
@@ -22,7 +19,7 @@
 
 
 <div class ="searchSectionWrapper d-flex align-items-center justify-content-center">
-    <section>
+    <section id="homeNav">
         <div>
             <ul class="searchSection">
                 <li class="searchElements">
@@ -33,13 +30,13 @@
                     <img src="/svg/cat.svg" alt="Search Cat" style="width: 80%;height:80%;">
                     <span class="petLabel">Cat</span>
                 </li>
-                <li class="searchElements">
+                <!-- <li class="searchElements">
                     <img src="/svg/other.svg" alt="Search Other Pets" style="width: 65%;height:65%;">
                     <span class="petLabel">Other</span>
-                </li>
-                <li class="searchElements">
+                </li> -->
+                <li class="searchElements" id="profile">
                     <img src="/svg/shelter.svg" alt="Search Dog" style="width: 70%;height:70%;">
-                    <span class="petLabel">Shelter</span>
+                    <span class="petLabel">Your Pets</span>
                 </li>
             </ul>
         </div>

@@ -189,6 +189,12 @@ img {
   height: auto;
 }
 
+.petListImage {
+  height: 370px;
+  width: 400px;
+  object-fit: cover;
+}
+
 /* index.scss by forwards all files from components folder. index.scss is by default and no need to specify during @use */
 * {
   box-sizing: border-box;

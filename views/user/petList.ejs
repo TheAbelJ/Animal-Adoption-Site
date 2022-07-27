@@ -1,16 +1,27 @@
 <% layout('./layouts/boilerplate') %> 
-
+<div class="container-fluid mr-0 ml-0 pl-0 pr-0 border-left-0 border-right-0 navigation-container align-items-center">
+    <nav>
+            <form action="/home" method="GET" >
+                <div class="row d-flex justify-content-end align-items-center">
+                    <div class="col-2 mr-auto ml-3 ">
+                        <span class="home-text"><b>HOME</b></span>
+                        <button type="submit" id="goToHome" class="hidden"></button>
+                    </div>
+                </div>
+            </form>
+    </nav>
+</div>
 <div class="container">
     <div class="card-header mt-3">
         <h1 class="text-center mt-2 mb-5">Your Pets</h1>
         <div class="row d-flex flex-row justify-content-evenly">
             <% for (const[index,pet] of pets.entries()){ %> 
-                <div class="card col-xs-10 col-md-5 mt-3 mb-3 ml-2 mr-2">
+                <div class="card col-xs-10 col-md-4 mt-3 mb-3 ml-1 mr-1 d-flex justify-content-center">
 
-                    <img src="<%= pet.image.url%>" class="d-block w-100" alt="">
+                    <img class="petListImage" src="<%= pet.image.url%>"  alt="">
 
                     <div class="card-body">
-                      <h5 class="card-title">Pet <%= index+1  %> </h5>
+                      <h5 class="card-title"><b>Pet <%= index+1  %></b></h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><b>Species: </b><%= pet.species %></li>
@@ -49,3 +60,5 @@
         
     </div>
 </div>
+
+<script src="/scripts/petList.js"></script>
