@@ -8,10 +8,15 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.renderRegisterForm = (req,res)=>{
+    const shelter = true;
     if (req.isAuthenticated()) {
         return res.redirect('/home');
     }
-    res.render('user/register')
+    //temporary for shelter project. use res.render('user/register') for final
+    if(req.query.shelter)
+        return res.render('user/register',{shelter});
+    else
+        res.render('user/register',{shelter:false})
 }
 
 module.exports.renderProfile = catchAsync(async (req,res) => {

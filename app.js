@@ -1,7 +1,6 @@
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
-//https://icons8.com/icon/set/animals/color svg icons
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -9,7 +8,9 @@ const methodOverride = require('method-override');
 const morgan=require('morgan');
 const ejsMate = require("ejs-mate");  /* requiring ejs mate to use layouts */
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+const mongoSanitize = require('express-mongo-sanitize');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
@@ -23,8 +24,10 @@ const Pet = require('./models/pets');
 const User = require('./models/users');
 const Shelter = require('./models/shelters')
 const {species} = require('./seeds/petbreeds')
-
-mongoose.connect('mongodb://127.0.0.1:27017/petRescue', {
+const dbUrl = process.env.DB_URL;
+//process.env.DB_URL;
+//'mongodb://127.0.0.1:27017/petRescue'
+mongoose.connect(dbUrl, {
 
 });
 
@@ -40,14 +43,27 @@ const port=3000;
 app.engine('ejs',ejsMate)                                   /* setting ejs engine to be ejsMate */
 app.set('view engine', 'ejs');                              /* setting view engine to be ejs */
 app.set('views', path.join(__dirname, 'views'))             /* set the views folder */
-
+app.use(mongoSanitize());                                   //Sanitize incoming data i.e prevent mongo injections
 app.use(express.urlencoded({ extended: true }));            /* used to parse url encoded information from request body */
 app.use(methodOverride('_method'));                          /* methodOverride allows to change get/put requests to other types(patch,delete,etc) */
 app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname,'public')));       /* Setting the public directory for static assets */
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'hugesecret'
+    }
+});
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+})
+
 const sessionConfig = {
-    secret: 'thisshouldbeabettersecret!',
+    store,
+    secret: 'HugeSecret',
     resave: false,
     saveUninitialized: true,
     cookie: {

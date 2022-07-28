@@ -4,7 +4,7 @@
     <div class="row d-flex justify-content-center">
         <div class="card  mt-5 col-md-8 col-sm-10">
             <div class="card-header">
-                <h1 class="text-center">Register</h1>
+                <h1 class="text-center">Register <%= shelter?'Shelter':'' %> </h1>
             </div>
             
             <form action="/user/register" method="POST" class=" validated-form  mt-3" novalidate >
@@ -20,11 +20,11 @@
                             <input class="form-control" type="password" id="password" name="password" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="firstname">First name</label>
+                            <label class="form-label" for="firstname"><%= shelter? 'Shelter name':'First Name' %> </label>
                             <input class="form-control" type="text" id="firstname" name="name[first]" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="lastname">Last name</label>
+                            <label class="form-label" for="lastname"><%= shelter?'Parent Organization': 'Last name' %> </label>
                             <input class="form-control" type="text" id="lastname" name="name[last]" required>
                         </div>
                     </div>

@@ -1,7 +1,9 @@
 <% layout('/layouts/boilerplate') %> 
 <div class="pb-2 mt-4 d-flex justify-content-end">
     <!-- <button class="btn btn-lg home-button mr-5" id="logoutButton">Logout</button> -->
-    
+    <% if(!currentUser){ %>
+        <button class="btn btn-lg home-button mr-5" id="registerShelter">Register Shelter</button> 
+    <% } %> 
     <button class="btn btn-lg home-button mr-5" id="registerButton"><%= currentUser? "Profile":"Register" %></button>
     <button class="btn btn-lg home-button mr-5" id="loginButton"><%= currentUser? "Logout":"Login" %> </button>
 </div>

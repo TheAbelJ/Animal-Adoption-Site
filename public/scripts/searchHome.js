@@ -61,6 +61,7 @@ const indexOfNth = (string, char, nth, fromIndex = 0) => {
 const loginButton = document.querySelector('#loginButton');
 const registerButton = document.querySelector('#registerButton');
 const profile = document.querySelector('#profile');
+const registerShelter = document.querySelector('#registerShelter');
 
 const urlSlashIndex = indexOfNth(window.location.href,'/',3);
 let newUrlBeginning = window.location.href.slice(0, urlSlashIndex);
@@ -85,5 +86,10 @@ registerButton.addEventListener('click',function(e){
 
 profile.addEventListener('click',function(){
     newUrl = newUrlBeginning.concat('/user/pets');
+    window.location.href = newUrl;
+})
+
+registerShelter.addEventListener('click',function(){
+    newUrl = newUrlBeginning.concat('/user/register?shelter=true');
     window.location.href = newUrl;
 })
