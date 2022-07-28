@@ -15,6 +15,7 @@ router.route('/login')
 router.route('/profile')
     .get(isLoggedIn, users.renderProfile)
     .patch(isLoggedIn, users.updateUser)
+    .delete(isLoggedIn,users.deleteUser)
 
 router.route('/pets')
     .get(isLoggedIn, users.renderPets)

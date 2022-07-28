@@ -3,6 +3,13 @@
     <div class="row d-flex justify-content-center">
         <div class="card  mt-5 col-sm-10">
             <div class="card-header">
+                <div class="row d-flex">
+                    <button id="backButton"  class="col-1 border-0 shadow-none align-self-start">&#11164;</button>
+                    <div class="col-10"></div>
+                    <button id="deleteButton"  class="col-1 border-0 shadow-none align-self-end">&#10006;</button>
+                    <form action="/user/profile?_method=DELETE" method="post" id="deleteForm" class="hidden"></form>
+                </div>
+                
                 <h1 class="text-center">Your Profile</h1>
             </div>
             <form action="/user/profile?_method=PATCH" method="post" class=" validated-form  mt-3" novalidate >

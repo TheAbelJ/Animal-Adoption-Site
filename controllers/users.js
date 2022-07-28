@@ -48,6 +48,11 @@ module.exports.logoutUser = (req, res) => {
     res.redirect('/home');
 }
 
+module.exports.deleteUser = catchAsync(async (req,res) =>{
+    await User.findByIdAndDelete(req.user._id);
+    res.redirect('/home');
+})
+
 module.exports.renderPets = catchAsync(async (req,res)=>{
     const user = await User.findById(req.user._id)
     const pets = await Pet.find({_id:{ $in:user.pets }})
