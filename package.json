@@ -4,7 +4,7 @@
   "description": "Centralised platform to find and locate rescues/pets in the area",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node app.js",
     "gulp": "gulp"
   },
   "author": "Abel John Reji",

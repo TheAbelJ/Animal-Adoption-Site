@@ -24,7 +24,7 @@ const Pet = require('./models/pets');
 const User = require('./models/users');
 const Shelter = require('./models/shelters')
 const {species} = require('./seeds/petbreeds')
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/petRescue';
 //process.env.DB_URL;
 //'mongodb://127.0.0.1:27017/petRescue'
 mongoose.connect(dbUrl, {
@@ -38,7 +38,6 @@ db.once("open", () => {
 });
 
 const app = express();
-const port=3000;
 
 app.engine('ejs',ejsMate)                                   /* setting ejs engine to be ejsMate */
 app.set('view engine', 'ejs');                              /* setting view engine to be ejs */
@@ -49,11 +48,12 @@ app.use(methodOverride('_method'));                          /* methodOverride a
 app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname,'public')));       /* Setting the public directory for static assets */
 
+const secret = process.env.SECRET || 'testbug';
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'hugesecret'
+        secret
     }
 });
 
@@ -63,7 +63,7 @@ store.on("error", function (e) {
 
 const sessionConfig = {
     store,
-    secret: 'HugeSecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -121,6 +121,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err })
 })
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Serving on port ${port}`);
+    console.log(`Serving on port ${port}`)
 })
