@@ -1,2 +1,105 @@
-@forward 'petSelect';
 @forward 'buttons';
+@forward 'introsection';
+@forward 'aboutsection';
+@forward 'catdogselectsection';
+@use '../variables' as *;
+
+.logobar{
+    cursor:pointer;
+}
+
+.topbar{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    @media screen and (min-width:#{$homemobile+1}){
+        flex-direction:column;
+    }
+}
+
+.homebar{
+    display: flex;
+/*     width:100vw; */
+    margin-right: 0px;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 7.5vh;
+    flex-grow: 1;
+    .logobar{
+        img{
+            margin-left: 1rem;
+            width:4rem;
+            height:4rem;
+        }
+
+        span{
+            font-family: $fontfamily;
+            font-weight:700;
+            font-size: 1.1rem;
+            color: $primarycolor;
+        }
+    }
+
+    .buttonbar{
+        height:4rem;
+        display:none;
+
+        @media only screen and (min-width: #{$homemobile+1}){
+            display:inline-block;
+        }
+    }
+
+}
+
+@media screen and (max-width:1275px){
+    #introsection{
+        height:400px;
+    }
+    #catdogselect div{
+        height:250px
+    }
+}
+
+@media screen and (max-width:920px){
+    #introsection{
+        height:325px;
+        #introcontent{
+            top:8%;
+            left:52%;
+        }
+    }
+    #catdogselect div{
+        height:200px
+    }
+}
+
+@media screen and (max-width:736px){
+    #introsection{
+        #introcontent{
+            top:20%;
+            left:56%;
+        }
+        #introtext{
+            display:none;
+        }
+    }
+    #catdogselect{
+        flex-direction: column;
+        div{
+            width:100%;
+        }
+    }
+}
+
+@media screen and (max-width:620px){
+    #introsection{
+        #introcontent{
+            top:67%;
+            left:10%;
+            margin:0;
+            #introtitle{
+                font-size:2.3rem;
+            }
+        }
+    }
+}

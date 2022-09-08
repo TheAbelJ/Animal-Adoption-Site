@@ -92,10 +92,7 @@ const indexOfNth = (string, char, nth, fromIndex = 0) => {
 //redirect to home after clicking on home text
 const home  = document.querySelector('.home-text');
 home.addEventListener('click',() => {
-    const urlSlashIndex = indexOfNth(window.location.href,'/',3);
-    let newUrl = window.location.href.slice(0, urlSlashIndex);
-    newUrl = newUrl.concat('/home');
-    window.location.href = newUrl;
+    window.location.search = ''
 });
 
 //redirect on clicking on pet card

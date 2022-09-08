@@ -1,12 +1,21 @@
 <% layout('/layouts/boilerplate') %> 
-<div class="pb-2 mt-4 d-flex justify-content-end">
-    <!-- <button class="btn btn-lg home-button mr-5" id="logoutButton">Logout</button> -->
-    <% if(!currentUser){ %>
-        <button class="btn btn-lg home-button mr-5" id="registerShelter">Register Shelter</button> 
-    <% } %> 
-    <button class="btn btn-lg home-button mr-5" id="registerButton"><%= currentUser? "Profile":"Register" %></button>
-    <button class="btn btn-lg home-button mr-5" id="loginButton"><%= currentUser? "Logout":"Login" %> </button>
+<div class="topbar">
+    <header class="homebar">
+        <div class="logobar">
+            <img class="logo" src="/svg/logo.svg" alt="Site Logo">
+            <span>Pet Rescue</span>
+        </div>
+        
+        <div class="buttonbar">
+            <button class="home-button" id="registerButton"><%= currentUser? "Profile":"Register" %>
+            </button><button class="home-button" id="loginButton"><%= currentUser? "Logout":"Login" %> </button>
+        </div>
+    </header>
+    
+    <%- include('./partials/navbar')%> 
 </div>
+   
+
 
 <form action="/pet/search" class="hidden" method="GET">    
     <select class="form-select" id="petSelect" name="species" id="selectedSpecies"required>
@@ -19,30 +28,42 @@
     <button type="submit" id="searchButton">Search</button> 
 </form>  
 
+<section id="introsection">
+    <article id="introcontent">
+        <div id="introtitle">Find your forever friend</div>
+        <div id="introtext">Add a new member to your family from hundreds of pets all over India</div>
+    </article>
+</section>
 
-<div class ="searchSectionWrapper d-flex align-items-center justify-content-center">
-    <section id="homeNav">
+<section id="about">
+    <h2 id="aboutsectiontitle">Your Pet Adoption Journey</h2>
+    <article id="steps">
         <div>
-            <ul class="searchSection">
-                <li class="searchElements">
-                    <img src="/svg/dog.svg" alt="Search Dog" style="width: 80%;height:80%;">
-                    <span class="petLabel">Dog</span>
-                </li>
-                <li class="searchElements">
-                    <img src="/svg/cat.svg" alt="Search Cat" style="width: 80%;height:80%;">
-                    <span class="petLabel">Cat</span>
-                </li>
-                <!-- <li class="searchElements">
-                    <img src="/svg/other.svg" alt="Search Other Pets" style="width: 65%;height:65%;">
-                    <span class="petLabel">Other</span>
-                </li> -->
-                <li class="searchElements" id="profile">
-                    <img src="/svg/shelter.svg" alt="Search Dog" style="width: 70%;height:70%;">
-                    <span class="petLabel">Your Pets</span>
-                </li>
-            </ul>
+            <img src="./svg/browse.svg" alt="browse pets">
+            <h3>Search</h3>
+            <p>Choose between a dog or cat below and give location permission to search nearby</p>
         </div>
-    </section>
-</div>
+        <div>
+            <img src="./svg/communicate.svg" alt="communicate">
+            <h3>Communicate</h3>
+            <p>Once you find a pet, click on it to get contact info for their pet parent and contact them</p>
+        </div>
+        <div>
+            <img src="./svg/adopt.svg" alt="adop pet">
+            <h3>Adopt</h3>
+            <p>The pet parent will walk you through their adoption process</p>
+        </div>  
+    </article>
+</section>
 
-<script src="/scripts/searchHome.js"></script>
+<section id="catdogselect">
+    <div class="searchpaneelement">
+        <h2 class="searchpanetitle searchElements">Dogs</h2>
+    </div>
+    <div class="searchpaneelement">
+        <h2 class="searchpanetitle searchElements">Cats</h2>
+    </div>
+</section>
+
+<script src="/scripts/homePage/searchHome.js"></script>
+<script src="/scripts/homePage/redirect.js"></script>

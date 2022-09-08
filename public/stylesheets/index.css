@@ -3,8 +3,8 @@
   justify-content: space-around;
   align-items: center;
   min-height: 7.5vh;
-  max-height: 10vh;
   background-color: #4361EE;
+  z-index: 100;
 }
 #navbar .nav-links {
   display: flex;
@@ -13,6 +13,7 @@
   align-items: center;
   margin-bottom: 0;
   width: 70%;
+  height: 3.2rem;
 }
 #navbar .nav-links li {
   list-style: none;
@@ -24,12 +25,12 @@
 #navbar .burger {
   display: none;
   cursor: pointer;
+  height: 23px;
+  width: 34px;
 }
 #navbar .burger div {
-  width: 32px;
-  height: 3.2px;
-  background-color: rgb(226, 226, 226);
-  margin: 5px;
+  flex-grow: 1;
+  background-color: #4361EE;
 }
 
 @media screen and (max-width: 992px) {
@@ -43,12 +44,13 @@
   }
   #navbar {
     justify-content: flex-end;
+    background-color: white;
   }
   #navbar .nav-links {
     position: absolute;
     right: 0px;
     height: 92vh;
-    top: 6.5vh;
+    top: 4.2rem;
     background-color: #4361EE;
     display: flex;
     flex-direction: column;
@@ -61,7 +63,9 @@
   }
   #navbar .burger {
     transform: translateX(-80%);
-    display: block;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
   }
   #navbar .burger div {
     transition: all 0.3s ease;
@@ -73,7 +77,7 @@
 @keyframes navLinkFade {
   from {
     opacity: 0;
-    transform: translateX(20%);
+    transform: translateX(50%);
   }
   to {
     opacity: 1;
@@ -81,7 +85,7 @@
   }
 }
 .toggle .line1 {
-  transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6.35px);
 }
 
 .toggle .line2 {
@@ -89,63 +93,272 @@
 }
 
 .toggle .line3 {
-  transform: rotate(45deg) translate(-6px, -6px);
+  transform: rotate(45deg) translate(-6px, -6.35px);
 }
 
 .navTransition {
   transition: transform 0.3s ease-in;
 }
 
+.hideNavElement {
+  display: none;
+}
+
 footer {
   display: none;
 }
 
-.searchSectionWrapper {
-  display: flex;
-  height: 80vh;
-  flex-direction: row;
-  justify-content: center;
-}
-.searchSectionWrapper .searchSection {
-  max-width: 75%;
-  display: flex;
-  margin: auto;
-  list-style-type: none;
-  flex-direction: row;
-}
-.searchSectionWrapper .searchSection :hover {
-  border: 10px solid #4361EE;
-}
-.searchSectionWrapper .searchSection .searchElements {
-  background-color: #F2F2F2;
-  border-radius: 20%;
-  margin: 0 1rem;
-  padding: 1em;
-  border-color: #4361EE;
-  border-width: 2px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  justify-content: flex-end;
-}
-.searchSectionWrapper .searchSection .searchElements .petLabel {
-  font-size: 1.5rem;
-}
-.searchSectionWrapper .searchSection .searchElements :hover {
+.home-button {
+  background-color: white;
+  color: #4d4751;
   border: none;
+  border-left: 1px solid #D3D3D3;
+  font-family: arial;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.65rem 1rem;
+  margin: 0px;
+  height: 100%;
   cursor: pointer;
 }
-
-.home-button {
-  background-color: #4361EE;
-  color: rgb(226, 226, 226);
-}
-.home-button:hover {
+.home-button:hover, .home-button:active {
   background-color: white;
   color: #4361EE;
 }
+.home-button ~ .home-button {
+  border: none;
+}
+@media only screen and (min-width: 820px) {
+  .home-button {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
 
+#introsection {
+  position: relative;
+  background-color: black;
+  background-image: url("../images/introsectionimage.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  width: 100%;
+}
+#introsection:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+#introsection #introcontent {
+  position: absolute;
+  top: 14%;
+  left: 55%;
+  color: white;
+  margin-right: 5%;
+  text-shadow: 2px 2px 5px #000;
+}
+#introsection #introcontent #introtitle {
+  font-size: 3rem;
+  font-weight: 600;
+}
+#introsection #introcontent #introtext {
+  font-size: 1.5rem;
+  margin-right: 7%;
+}
+
+#about {
+  width: 100%;
+  margin-top: 4em;
+}
+#about h2 {
+  text-align: center;
+  margin-bottom: 1.5em;
+  color: #4361EE;
+  font-weight: 700;
+}
+#about #steps {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+#about #steps div {
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#about #steps div img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1em;
+}
+#about #steps div:nth-child(2) img {
+  width: 124px;
+}
+#about #steps div h3 {
+  font-weight: 500;
+  color: #4d4751;
+}
+#about #steps div p {
+  color: #4d4751;
+}
+
+#catdogselect {
+  width: 100%;
+  margin-top: 2.5em;
+  margin-bottom: 3em;
+  display: flex;
+  flex-direction: row;
+}
+#catdogselect div {
+  width: 50%;
+  position: relative;
+  background-color: black;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 350px;
+  color: grey;
+}
+#catdogselect div h2 {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+#catdogselect div::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+#catdogselect div.removebeforeelement::before {
+  display: none;
+}
+#catdogselect div:hover {
+  cursor: pointer;
+  color: white;
+  text-shadow: 2px 2px 5px #000;
+}
+#catdogselect div .searchpanetitle.makesearchtextwhite {
+  color: white;
+  text-shadow: 2px 2px 5px #000;
+}
+#catdogselect div:hover::before {
+  display: none;
+}
+#catdogselect div:nth-child(1) {
+  background-image: url("../images/dogselect.jpg");
+  background-position: left center;
+}
+#catdogselect div + div {
+  background-image: url("../images/catselect.jpg");
+  background-position: right center;
+}
+#catdogselect div + div h2 {
+  right: 0%;
+  left: 5%;
+}
+
+.logobar {
+  cursor: pointer;
+}
+
+.topbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+@media screen and (min-width: 769px) {
+  .topbar {
+    flex-direction: column;
+  }
+}
+
+.homebar {
+  display: flex;
+  /*     width:100vw; */
+  margin-right: 0px;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 7.5vh;
+  flex-grow: 1;
+}
+.homebar .logobar img {
+  margin-left: 1rem;
+  width: 4rem;
+  height: 4rem;
+}
+.homebar .logobar span {
+  font-family: arial;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #4361EE;
+}
+.homebar .buttonbar {
+  height: 4rem;
+  display: none;
+}
+@media only screen and (min-width: 769px) {
+  .homebar .buttonbar {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 1275px) {
+  #introsection {
+    height: 400px;
+  }
+  #catdogselect div {
+    height: 250px;
+  }
+}
+@media screen and (max-width: 920px) {
+  #introsection {
+    height: 325px;
+  }
+  #introsection #introcontent {
+    top: 8%;
+    left: 52%;
+  }
+  #catdogselect div {
+    height: 200px;
+  }
+}
+@media screen and (max-width: 736px) {
+  #introsection #introcontent {
+    top: 20%;
+    left: 56%;
+  }
+  #introsection #introtext {
+    display: none;
+  }
+  #catdogselect {
+    flex-direction: column;
+  }
+  #catdogselect div {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 620px) {
+  #introsection #introcontent {
+    top: 67%;
+    left: 10%;
+    margin: 0;
+  }
+  #introsection #introcontent #introtitle {
+    font-size: 2.3rem;
+  }
+}
 body {
   overflow-x: hidden;
 }

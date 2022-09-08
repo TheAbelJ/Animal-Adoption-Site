@@ -1,3 +1,6 @@
 $primarycolor:#4361EE;
 $fontfamily:arial;
 $offwhite:rgb(226,226,226);
+$darkgrey: #4d4751;
+$lightgrey: #D3D3D3;
+$homemobile: 768px; //mobile view breakpoint for home page. Change the breakpoint in navbar.js navAddRemoveTransition js event listener if this variable changes

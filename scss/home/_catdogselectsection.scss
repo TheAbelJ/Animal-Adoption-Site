@@ -1,0 +1,64 @@
+@use '../variables' as *;
+
+#catdogselect{
+    width:100%;
+    margin-top: 2.5em;
+    margin-bottom: 3em;
+    display: flex;
+    flex-direction: row;
+    div{
+        width:50%;
+        position: relative;
+        background-color: black;
+        background-size:100%;
+        background-repeat:no-repeat;
+        height:350px;
+        color:grey;
+        h2{
+            position: absolute;
+            top:50%;
+            right:5%;
+            text-transform: uppercase;
+            font-weight:500;
+            font-size:2.5rem;
+        }
+        &::before{                                   //reduce opacity for image
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+        }
+        &.removebeforeelement::before{              //removebeforelement class is toggled in javascript to make opacity 0
+            display:none;
+        }
+        &:hover {
+            cursor:pointer;
+            color:white;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .searchpanetitle.makesearchtextwhite{                //toggle white colour for text in searchpane
+            color:white;
+            text-shadow: 2px 2px 5px #000;
+        }
+        &:hover::before{
+            display:none;
+        }
+
+    }
+    div:nth-child(1){
+        background-image: url('../images/dogselect.jpg');
+        background-position: left center;
+    }
+    div + div{
+        background-image: url('../images/catselect.jpg');
+        background-position:right center;
+        h2{
+            right:0%;
+            left:5%;
+        }
+    }
+}
+

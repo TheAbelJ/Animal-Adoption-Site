@@ -1,20 +1,26 @@
 <nav id="navbar">
     <ul class="nav-links">
-        <li>
-            <a href="">Dogs</a>
+        <li class="navHideableElements <%= currentUser? 'hideNavElement':''%>" id="navRegister">
+            <a href="#">Register</a>
         </li>
-        <li>
-            <a href="">Cats</a>
+        <li class="navHideableElements <%= currentUser? 'hideNavElement':''%>" id="navLogin">
+            <a href="#">Login</a>
         </li>
-        <li>
-            <a href="">Other Animals</a>
+        <li class="navHideableElements <%= !currentUser? 'hideNavElement':''%>" id="navLogout">
+            <a href="#">Logout</a>
         </li>
-        <li>
-            <a href="">Pet Rehome</a>
+        <li class="navHideableElements <%= !currentUser? 'hideNavElement':''%>" id="navProfile">
+            <a href="#">Profile</a>
         </li>
-        <li>
-            <a href="">Shelters</a>
-        </li>   
+        <li class="searchElements">
+            <a href="#">Dogs</a>
+        </li>
+        <li class="searchElements">
+            <a href="#">Cats</a>
+        </li>
+        <li id="userPets">
+            <a href="#">Your Pets</a>
+        </li>
     </ul>
     <div class="burger">
         <div class="line1"></div>

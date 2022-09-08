@@ -1,0 +1,36 @@
+#introsection{
+    position: relative;
+    background-color: black;
+    background-image: url('../images/introsectionimage.jpg');
+    background-size:100%;
+    background-repeat:no-repeat;
+    background-size:cover;
+    height:500px;
+    width:100%;
+    &:before{                                   //reduce opacity for image
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.2);
+    }
+    #introcontent{
+        position:absolute;
+        top:14%;
+        left:55%;
+        color:white;
+        margin-right: 5%;
+        text-shadow: 2px 2px 5px #000;
+
+        #introtitle{
+            font-size: 3rem;
+            font-weight: 600;
+        }
+        #introtext{
+            font-size: 1.5rem;
+            margin-right:7%
+        }
+    }
+}
