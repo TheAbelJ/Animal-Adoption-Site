@@ -36,17 +36,18 @@ const navslide= () =>{
     function unHideNavElements(e){
         if(e.matches){
             navList.forEach(navListElement =>{
-                navListElement.classList.remove('hidden')
+                navListElement.classList.remove('hidden');
             })
         }
     }
     function hideNavElements(e){
         if(e.matches){
             navList.forEach(navListElement =>{
-                navListElement.classList.add('hidden')
+                navListElement.classList.add('hidden');
             })
         }
     }
+    hideNavElements(navChange);                                 //for hiding of register/login etc. when page is loaded first time(js media query doesnt fire then)
     navChange.addEventListener('change',handleScreenChange);
     navChange.addEventListener('change',hideNavElements);
     unHideNav.addEventListener('change',unHideNavElements);

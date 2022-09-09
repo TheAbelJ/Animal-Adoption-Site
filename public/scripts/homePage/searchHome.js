@@ -28,7 +28,7 @@ const rejected = async function(){
         formLong.value = longitude;
         searchButton.click();
     }
-    catch(err){
+    catch(err){ 
         console.log(`API ERROR IP LOCATION: ${err}`);
     }
 }

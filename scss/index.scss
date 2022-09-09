@@ -5,7 +5,7 @@
 @use 'petDetails' as *;
 @use 'petList' as *;
 
-*{
+*,*::before,*::after{
     box-sizing:border-box;
     padding:0;
     margin:0;

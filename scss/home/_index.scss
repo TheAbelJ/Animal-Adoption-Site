@@ -66,6 +66,17 @@
         #introcontent{
             top:8%;
             left:52%;
+            #introtitle{
+                font-size: 2.85rem;
+            }
+            #introtext{
+                font-size: 1.4rem;
+            }
+        }
+    }
+    #about{
+        h2{
+            font-size:1.75rem;
         }
     }
     #catdogselect div{
@@ -76,11 +87,14 @@
 @media screen and (max-width:736px){
     #introsection{
         #introcontent{
-            top:20%;
-            left:56%;
-        }
-        #introtext{
-            display:none;
+            top:10%;
+            left:50%;
+            #introtext{
+                display:none;
+            }
+            #introtext2{
+                display:block;
+            }
         }
     }
     #catdogselect{
@@ -100,6 +114,51 @@
             #introtitle{
                 font-size:2.3rem;
             }
+        }
+    }
+    #about{
+        #steps{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            .aboutsectionelement{
+                width:90%;
+                flex-direction: row;
+                align-items: flex-start;
+                img{
+                    margin-right: 1.3em;
+                }
+                &:nth-child(2) img{
+                    height:81px;
+                    width:100px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:490px){
+    #introsection{
+        #introcontent{
+            left:3%;
+            top:55%;
+        }
+    }
+}
+
+@media screen and (max-width:370px){
+
+    #introsection{ 
+        #introcontent{
+            #introtext2{
+                font-size:1.1rem;
+            }
+        }
+    }
+    #catdogselect div{
+        height:150px;
+        h2{
+            font-size:1.5rem;
         }
     }
 }
