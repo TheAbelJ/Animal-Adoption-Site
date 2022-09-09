@@ -18,10 +18,10 @@ const rejected = async function(){
     try{
         const addressResponse = await fetch('https://api.ipify.org/?format=json');
         const ipAddress = await addressResponse.json();
-        const locationResponse = await fetch(`http://ip-api.com/json/${ipAddress.ip}`)
+        const locationResponse = await fetch(`https://ipwho.is/${ipAddress.ip}`)
         const ipLocation = await locationResponse.json();
-        const latitude  = ipLocation.lat
-        const longitude = ipLocation.lon;
+        const latitude  = ipLocation.latitude;
+        const longitude = ipLocation.longitude;
         const formLat = document.querySelector('.latitude');
         const formLong = document.querySelector('.longitude');
         formLat.value = latitude;

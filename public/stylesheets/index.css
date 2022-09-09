@@ -4,6 +4,7 @@
   align-items: center;
   min-height: 7.5vh;
   background-color: #4361EE;
+  font-size: 1.3rem;
   z-index: 100;
 }
 #navbar .nav-links {

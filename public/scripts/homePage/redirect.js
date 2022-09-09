@@ -68,10 +68,8 @@ navProfile.addEventListener('click',function(){
 })
 
 logo.addEventListener('click',()=>{
-    window.location.href = newUrlBeginning;
-    
+    window.location.href = newUrlBeginning; 
 })
-
 
 const searchPaneTitles = document.querySelectorAll('.searchpanetitle');
 const searchPaneElements = document.querySelectorAll('.searchpaneelement');
