@@ -1,0 +1,48 @@
+<div class="topbar">
+    <header class="homebar">
+        <div class="logobar">
+            <img class="logo" src="/svg/logo.svg" alt="Site Logo">
+            <span>Pet Rescue</span>
+        </div>
+        
+        <div class="buttonbar">
+            <button class="home-button" id="registerButton"><%= currentUser? "Profile":"Register" %>
+            </button><button class="home-button" id="loginButton"><%= currentUser? "Logout":"Login" %> </button>
+        </div>
+    </header>
+    <nav id="navbar">
+        <ul class="nav-links">
+            <li class="navHideableElements <%= currentUser? 'hideNavElement':''%>" id="navRegister">
+                <a href="#">Register</a>
+            </li>
+            <li class="navHideableElements <%= currentUser? 'hideNavElement':''%>" id="navLogin">
+                <a href="#">Login</a>
+            </li>
+            <li class="navHideableElements <%= !currentUser? 'hideNavElement':''%>" id="navLogout">
+                <a href="#">Logout</a>
+            </li>
+            <li class="navHideableElements <%= !currentUser? 'hideNavElement':''%>" id="navProfile">
+                <a href="#">Profile</a>
+            </li>
+            <li id="homeNavLink">
+                <a href="#">Home</a>
+            </li>
+            <li class="searchElements">
+                <a href="#">Dogs</a>
+            </li>
+            <li class="searchElements">
+                <a href="#">Cats</a>
+            </li>
+            <li id="userPets">
+                <a href="#">Your Pets</a>
+            </li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav> 
+</div>
+   
+

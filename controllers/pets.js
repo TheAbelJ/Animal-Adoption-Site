@@ -100,8 +100,8 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     if(req.query.distance)
         distance = parseInt(req.query.distance);
     else
-        distance = 4000;
-    distanceValues = [5,10,25,50,100,4000]
+        distance = 20000;
+    distanceValues = [5,10,25,50,100,20000]
 
     console.log(req.query);
     const filter ={};
@@ -141,14 +141,35 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     else
         filter.maxWeight = 200;
     
+    filter.species = pet.species;
+    const resultCount = 8;              //Number of results a page
+    
+    if(Number.isNaN(req.query.paginationOffset)){
+        return res.render('pet/petSearch',{pet,species,paginationOffset:'0'})
+    }
+    if(req.query.formValueChangeCheck === 'true'){
+        req.query.paginationOffset = '0';
+    }
+    let paginationOffset = parseInt(req.query.paginationOffset);
+    const resultOffset = paginationOffset*resultCount;              //number of pets offset while moving through pagination
+    paginationOffset = paginationOffset.toString();
     //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
     if(Number.isNaN(longitude) || Number.isNaN(latitude)){
-        return res.render('pet/petSearch',{pet,species})
+        return res.render('pet/petSearch',{pet,species,paginationOffset})
     }
     
-    filter.species= pet.species;
-    //longitude, latitude, distance, resultCount, filterParameters
-    const pets = await Pet.findByDistance(longitude,latitude,distance, 20, filter);
-    console.log(pets)
-    res.render('pet/petSearch',{pet,species,distance,distanceValues,pets,prevFormData:req.query});
+    //longitude, latitude, distance, resultCount, filterParameters, paginationOffset
+    const pets = await Pet.findByDistance(longitude,latitude,distance, resultCount, filter,resultOffset);
+    console.log(pets);
+    let totalPetCount;
+    try{
+        totalPetCount = pets[0].totalCount;
+    }
+    catch(err){
+        console.log('no pets found');
+        totalPetCount = 0;
+    }
+    const totalPageCount = Math.ceil(totalPetCount/resultCount);            //total pages need for the query
+    console.log(req.query);
+    res.render('pet/petSearch',{pet,species,paginationOffset,totalPageCount,distance,distanceValues,pets,prevFormData:req.query});
 })

@@ -417,16 +417,6 @@ footer {
     font-size: 1.5rem;
   }
 }
-body {
-  overflow-x: hidden;
-}
-
-img {
-  height: 230px;
-  width: 230px;
-  object-fit: cover;
-}
-
 .v-divider {
   margin-left: 5px;
   margin-right: 5px;
@@ -435,24 +425,44 @@ img {
   border-left: 1px solid gray;
 }
 
-.pet-card {
-  margin-right: 40px;
+.pet-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.pet-cards .pet-card {
+  margin-right: 1em;
+  margin-bottom: 1em;
   border-radius: 5%;
+  width: 240px;
   cursor: pointer;
 }
-
-.navigation-container {
+.pet-cards .pet-card .card-image-container {
   width: 100%;
+  height: 175px;
 }
-.navigation-container .home-text {
-  color: #4361EE;
-  font-size: 1.5rem;
-  cursor: pointer;
+.pet-cards .pet-card .card-image-container img {
+  width: 240px;
+  height: 175px;
+  object-fit: cover;
 }
-.navigation-container .color-select {
-  color: #4361EE;
-  border-radius: 0%;
-  border: none;
+.pet-cards .pet-card .card-body {
+  padding: 0.2em;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.pet-cards .pet-card .card-body .card-title {
+  margin-top: 0.2em;
+  margin-bottom: 0em;
+}
+.pet-cards .pet-card .card-body .card-text {
+  margin-top: 0.1em;
+  margin-bottom: 0em;
+}
+.pet-cards .pet-card .card-body .card-distance {
+  margin-top: 0.1em;
+  margin-bottom: 0em;
 }
 
 .expand-image {

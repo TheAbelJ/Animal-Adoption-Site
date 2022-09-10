@@ -96,11 +96,12 @@ const PetSchema = new Schema({
 PetSchema.index( { location : "2dsphere" } );
 
 //Static methods
-PetSchema.statics.findByDistance = function(longitude, latitude, distance, resultCount,filter) { 
+PetSchema.statics.findByDistance = function(longitude, latitude, distance, resultCount,filter,resultOffset) { 
     //console.log(`longitude: ${longitude}, latitude: ${latitude}`);
+    //console.log(`result offset in model:${resultOffset}`)
+    //console.log(distance,'in static')
     const unitValue = 1000;
-    console.log(distance,'in static')
-    return this.aggregate([
+    const foundPets = this.aggregate([
         {
             $geoNear: {
                 near: {
@@ -136,8 +137,13 @@ PetSchema.statics.findByDistance = function(longitude, latitude, distance, resul
                 distance: 1
             }
         },
+        {$setWindowFields: {output: {totalCount: {$count: {}}}}}, // returns the total count of pets
+        {
+            $skip: resultOffset
+        },
         { $limit: resultCount }
-    ]); 
+    ]);
+    return foundPets; 
 }
 
 //mongoose middleware
