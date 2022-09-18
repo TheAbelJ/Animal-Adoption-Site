@@ -24,7 +24,7 @@ const Pet = require('./models/pets');
 const User = require('./models/users');
 const Shelter = require('./models/shelters')
 const {species} = require('./seeds/petbreeds')
-const dbUrl = 'mongodb://127.0.0.1:27017/petRescue'; 
+const dbUrl = process.env.DB_URL;
 //process.env.DB_URL;
 //'mongodb://127.0.0.1:27017/petRescue'
 mongoose.connect(dbUrl, {
