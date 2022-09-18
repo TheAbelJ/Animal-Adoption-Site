@@ -1,9 +1,11 @@
 const pageItemNumbers = document.querySelectorAll('.page-item-numbers');
-const paginationOffset = document.querySelector('#paginationOffset');
+const paginationOffset = document.querySelector('#paginationOffset2');
 const currentPage = parseInt(paginationOffset.value)+1;
 const goToPreviousPage = document.querySelector('#goToPreviousPage');
 const goToNextPage = document.querySelector('#goToNextPage');
 const totalPageCount = document.querySelector('#totalPageCount').value;
+
+
 
 //hide empty pages
 pageItemNumbers.forEach(pageItem=>{
@@ -30,6 +32,8 @@ if(currentPage===parseInt(totalPageCount) || parseInt(totalPageCount)===0){
 else{
     goToNextPage.addEventListener('click',()=>{
         paginationOffset.value = (currentPage).toString();
+        //paginationOffset.setAttribute('value','1');
+        console.log(paginationOffset.value)
         searchButton2.click();
     })
 }
@@ -51,4 +55,3 @@ pageItemNumbers.forEach(pageItem=>{
     })
 })
 
-//Check if search parameters have been changed

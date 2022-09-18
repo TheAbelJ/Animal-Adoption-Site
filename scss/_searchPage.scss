@@ -1,49 +1,126 @@
 @use './variables' as *;
 
-.v-divider{
-    margin-left:5px;
-    margin-right:5px;
-    width:1px;
-    height:100%;
-    border-left:1px solid gray;
+body{
+    overflow-x: hidden;
 }
 
-.pet-cards{
+#offCanvasButton{
+    background-color: white;
+    color:#0d6efd;
+}
+
+
+#searchPageMain{
     display:flex;
     flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    .pet-card{
-        margin-right: 1em;
-        margin-bottom: 1em;
-        border-radius: 5%;
-        width: 240px;
-        cursor: pointer;
-        .card-image-container{
+    border-top: 1px solid rgb(211,211,211);
+    #offcanvasform{
+        width:20%;
+        border-right: solid $lightgrey 1px;
+        h5{
+            font-size:1.8rem;
+        }
+        #pureBredTrue{
+            margin-right:1em;
+        }
+        #pureBredFalse{
+            margin-right:1em;
+        }
+    }
+    #cards-pagination{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1;
+        .pet-cards{
             width:100%;
-            height:175px;
-            img{
-                width:240px;
-                height:175px;
-                object-fit: cover;
+            margin-top: 1em;
+            display:grid;
+            grid-template-columns: repeat(auto-fill,280px);
+            grid-template-rows: 1fr;
+            grid-auto-rows: 1fr;
+            grid-row-gap: 1em;
+            grid-auto-flow: row;
+            place-items:center;
+            place-content:space-evenly;
+            .pet-card{
+                border-radius: 5%;
+                width: 240px;
+                cursor: pointer;
+                .card-image-container{
+                    width:100%;
+                    height:175px;
+                    img{
+                        width:240px;
+                        height:175px;
+                        object-fit: cover;
+                    }
+                }
+                .card-body{
+                    padding: 0.2em;
+                    font-size:0.9rem;
+                    font-weight:500;
+                    .card-title{
+                        margin-top: 0.2em;
+                        margin-bottom: 0em;
+                    }
+                    .card-text{
+                        margin-top: 0.1em;
+                        margin-bottom: 0em;
+                    }
+                    .card-distance{
+                        margin-top: 0.1em;
+                        margin-bottom: 0em;
+                    }
+                }
             }
         }
-        .card-body{
-            padding: 0.2em;
-            font-size:0.9rem;
-            font-weight:500;
-            .card-title{
-                margin-top: 0.2em;
-                margin-bottom: 0em;
-            }
-            .card-text{
-                margin-top: 0.1em;
-                margin-bottom: 0em;
-            }
-            .card-distance{
-                margin-top: 0.1em;
-                margin-bottom: 0em;
-            }
+        .pagination-navigation{
+            margin-top: 1em;
+        }
+    }
+    
+}
+
+
+
+
+@media screen and (max-width:1250px){
+    #searchPageMain{
+        #offcanvasform{
+            width:25%;
+        }
+    }
+}
+
+@media screen and (max-width:1000px){
+    #searchPageMain{
+        #offcanvasform{
+            width:30%;
+        }
+    }
+}
+
+@media screen and (max-width:$homemobile){
+    #searchPageMain{
+        #offcanvasform{
+            width:50%;
+        }
+    }
+}
+
+@media screen and (max-width:700px){
+    #searchPageMain{
+        #offcanvasform{
+            width:80%;
+        }
+    }
+}
+
+@media screen and (max-width:500px){
+    #searchPageMain{
+        #offcanvasform{
+            width:90%;
         }
     }
 }

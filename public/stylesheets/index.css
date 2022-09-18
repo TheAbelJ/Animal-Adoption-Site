@@ -417,54 +417,111 @@ footer {
     font-size: 1.5rem;
   }
 }
-.v-divider {
-  margin-left: 5px;
-  margin-right: 5px;
-  width: 1px;
-  height: 100%;
-  border-left: 1px solid gray;
+body {
+  overflow-x: hidden;
 }
 
-.pet-cards {
+#offCanvasButton {
+  background-color: white;
+  color: #0d6efd;
+}
+
+#searchPageMain {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  border-top: 1px solid rgb(211, 211, 211);
 }
-.pet-cards .pet-card {
+#searchPageMain #offcanvasform {
+  width: 20%;
+  border-right: solid #D3D3D3 1px;
+}
+#searchPageMain #offcanvasform h5 {
+  font-size: 1.8rem;
+}
+#searchPageMain #offcanvasform #pureBredTrue {
   margin-right: 1em;
-  margin-bottom: 1em;
+}
+#searchPageMain #offcanvasform #pureBredFalse {
+  margin-right: 1em;
+}
+#searchPageMain #cards-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+#searchPageMain #cards-pagination .pet-cards {
+  width: 100%;
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
+  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
+  grid-row-gap: 1em;
+  grid-auto-flow: row;
+  place-items: center;
+  place-content: space-evenly;
+}
+#searchPageMain #cards-pagination .pet-cards .pet-card {
   border-radius: 5%;
   width: 240px;
   cursor: pointer;
 }
-.pet-cards .pet-card .card-image-container {
+#searchPageMain #cards-pagination .pet-cards .pet-card .card-image-container {
   width: 100%;
   height: 175px;
 }
-.pet-cards .pet-card .card-image-container img {
+#searchPageMain #cards-pagination .pet-cards .pet-card .card-image-container img {
   width: 240px;
   height: 175px;
   object-fit: cover;
 }
-.pet-cards .pet-card .card-body {
+#searchPageMain #cards-pagination .pet-cards .pet-card .card-body {
   padding: 0.2em;
   font-size: 0.9rem;
   font-weight: 500;
 }
-.pet-cards .pet-card .card-body .card-title {
+#searchPageMain #cards-pagination .pet-cards .pet-card .card-body .card-title {
   margin-top: 0.2em;
   margin-bottom: 0em;
 }
-.pet-cards .pet-card .card-body .card-text {
+#searchPageMain #cards-pagination .pet-cards .pet-card .card-body .card-text {
   margin-top: 0.1em;
   margin-bottom: 0em;
 }
-.pet-cards .pet-card .card-body .card-distance {
+#searchPageMain #cards-pagination .pet-cards .pet-card .card-body .card-distance {
   margin-top: 0.1em;
   margin-bottom: 0em;
+}
+#searchPageMain #cards-pagination .pagination-navigation {
+  margin-top: 1em;
 }
 
+@media screen and (max-width: 1250px) {
+  #searchPageMain #offcanvasform {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  #searchPageMain #offcanvasform {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 768px) {
+  #searchPageMain #offcanvasform {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 700px) {
+  #searchPageMain #offcanvasform {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 500px) {
+  #searchPageMain #offcanvasform {
+    width: 90%;
+  }
+}
 .expand-image {
   width: 100%;
   height: auto;

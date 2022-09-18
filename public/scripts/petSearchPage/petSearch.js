@@ -1,4 +1,4 @@
-const searchButton = document.querySelector('#searchButton');
+const searchButton = document.querySelector('#searchButton3');
 const searchButton2 = document.querySelector('#searchButton2');
 const selectedSpecies = document.querySelector('#selectedSpecies');
 const distance = document.querySelector('#distance');

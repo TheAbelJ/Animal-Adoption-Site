@@ -2,13 +2,13 @@
 
     <div
         class="container-fluid mr-0 ml-0 pl-0 pr-0 border-left-0 border-right-0 navigation-container align-items-center">
-
-
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-pills">
             <li class="nav-item">
-                <button class="nav-link active" aria-current="page" href="#">Search Filters</button>
+                <div class="btn-group dropend">
+                    <button class="nav-link active hidden dropdown-toggle" id="offCanvasButton" data-bs-toggle="offcanvas" href="#offcanvasform" role="button" aria-controls="offcanvasExample" aria-current="page" href="#">Search Filters</button>
+                </div>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" id="pet-distance-bar">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                     aria-expanded="false">Species</a>
                 <ul class="dropdown-menu">
@@ -37,8 +37,7 @@
             <div>
                 <select name="species" id="selectedSpecies" class="form-select form-select-lg color-select border-right-0 border-top-0 shadow-none" required>
                     <% species.forEach(petSpecies=>{ %>
-                        <option value="<%= petSpecies %>" <%=petSpecies===pet.species? 'selected' :'' %>><%= petSpecies
-                                %>
+                        <option value="<%= petSpecies %>" <%=petSpecies===pet.species? 'selected' :'' %>><%= petSpecies%>
                         </option>
                         <% }) %>
                 </select>
@@ -55,21 +54,27 @@
             <div>
                 <input type="hidden" name="location[latitude]" class="latitude" value="">
                 <input type="hidden" name="location[longitude]" class="longitude" value="">
+                <input type="hidden" name="paginationOffset" value= "0">
 
-                <button type="submit" id="searchButton" class="btn btn-success m-3 hidden">Search</button>
+                <button type="submit" id="searchButton3" class="btn btn-success m-3 hidden">Search</button>
             </div>
         </form>
     </div>
 
-    <div class="mt-5 ml-1 mr-1  d-flex">
-        <div class="row">
-            <div class="col-3 ml-3 text-center font-weight-bold">
+    <main id="searchPageMain">
+        <div class="" tabindex="-1" id="offcanvasform" aria-labelledby="offcanvasExampleLabel"> <!-- offcanvas offcanvas-start -->
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasExampleLabel">Search Filters</h5>
+              <button type="button" id="off-canvas-x"  class="btn-close text-reset hidden" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+    
                 <form action="/pet/search" class="validated-form" method="GET" novalidate id="petSearchForm">
                     <input type="hidden" name="species" value="<%= pet.species %>">
                     <input type="hidden" name="location[latitude]" class="latitude" value="">
                     <input type="hidden" name="location[longitude]" class="longitude" value="">
                     <input type="hidden" name="distance" id="hiddenDistance" value="">
-                    <input type="hidden" name="paginationOffset" id="paginationOffset" value= <%= paginationOffset? paginationOffset:"0" %>>
+                    <input type="hidden" name="paginationOffset" id="paginationOffset2" value= "<%= paginationOffset? paginationOffset:"0" %>">
                     <input type="hidden" name="totalPageCount" id="totalPageCount" value = <%=totalPageCount%> >
                     <input type="hidden" name="formValueChangeCheck" id="formValueChangeCheck" value="false"> 
                     <span>Breed</span>
@@ -88,15 +93,15 @@
                             </option>
                             <% }) %>
                     </select>
-
+    
                     <label class="form-label">Purebred</label>
-                    <div class="row d-flex justify-content-start">
-                        <div class="col ml-2 mb-2 form-check ">
+                    <div class="row">
+                        <div class="col mb-2 form-check d-flex justify-content-center">
                             <input class="form-check-input pureBred radio-check" type="radio" name="pureBred" id="pureBredTrue"
                                 value="true">
                             <label class="form-check-label font-weight-normal" for="pureBredTrue">Yes</label>
                         </div>
-                        <div class="col ml-4 mb-2 form-check">
+                        <div class="col ml-2 mb-2 form-check d-flex justify-content-center">
                             <input class="form-check-input pureBred radio-check" type="radio" name="pureBred" id="pureBredFalse"
                                 value="false">
                             <label class="form-check-label font-weight-normal" for="pureBredFalse">No</label>
@@ -107,39 +112,43 @@
                             <button class="btn btn-secondary btn-sm" id="resetPureBred" type="button"> Reset</button>
                         </div>
                     </div>
-
+    
                     <label class="form-label" for="minAge">Age (years)</label>
                     <div class="row d-flex justify-content-between align-items-center">
                         <div class="mb-3 col">
                             <input id="minAge" name="minAge" class="form-control form-values-check" type="number" min="0" max="100"
                                 placeholder="Min" value=<%=prevFormData.minAge %>>
                         </div>
-                        <div class="mb-3 col-1  pl-0 pr-0 text-center font-weight-normal"><span>to</span></div>
+                        <div class="mb-3 col-1  pl-0 pr-0 font-weight-normal d-flex justify-content-center"><span>to</span></div>
                         <div class="mb-3 col">
                             <input id="maxAge" name="maxAge" class="form-control form-values-check" type="number" min="0" max="100"
                                 placeholder="Max" value=<%=prevFormData.maxAge %>>
                         </div>
                     </div>
-
+    
                     <label class="form-label" for="minWeight">Weight (kg)</label>
                     <div class="row d-flex justify-content-between align-items-center">
                         <div class="mb-3 col">
                             <input id="minWeight" name="minWeight" class="form-control form-values-check" type="number" min="0" max="200"
                                 placeholder="Min" value=<%=prevFormData.minWeight%>>
                         </div>
-                        <div class="mb-3 col-1  pl-0 pr-0 text-center font-weight-normal"><span>to</span></div>
+                        <div class="mb-3 col-1  pl-0 pr-0 font-weight-normal d-flex justify-content-center"><span>to</span></div>
                         <div class="mb-3 col">
                             <input id="maxWeight" name="maxWeight" class="form-control form-values-check" type="number" min="0" max="200"
                                 placeholder="Max" value=<%=prevFormData.maxWeight %>>
                         </div>
                     </div>
-
+    
                     <div class="row d-flex justify-content-center">
                         <button type="submit" id="searchButton2" class="btn btn-success m-3 col-4">Search</button>
                     </div>
                 </form>
+    
             </div>
-            <div class="v-divider col-1"></div>
+          </div>
+
+          <div id="cards-pagination">
+
             <div class="pet-cards col-8">
                 <% for (let foundPet of pets){ %>
                     <div class="card pet-card text-center" id="<%= foundPet._id %>">
@@ -181,12 +190,12 @@
                     </ul>
                   </nav>
             </div>
-        
-        </div>
-    </div>
+
+          </div>
+          
+    </main>
+    
     </script>
     <script src="/scripts/petSearchPage/petSearch.js"></script>
     <script src="/scripts/petSearchPage/pagination.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    <script src="/scripts/petSearchPage/searchForm.js"></script>

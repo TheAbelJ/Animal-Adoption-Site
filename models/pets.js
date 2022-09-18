@@ -97,9 +97,10 @@ PetSchema.index( { location : "2dsphere" } );
 
 //Static methods
 PetSchema.statics.findByDistance = function(longitude, latitude, distance, resultCount,filter,resultOffset) { 
-    //console.log(`longitude: ${longitude}, latitude: ${latitude}`);
-    //console.log(`result offset in model:${resultOffset}`)
-    //console.log(distance,'in static')
+    console.log(`longitude: ${longitude}, latitude: ${latitude}`);
+    console.log(`result offset in model:${resultOffset}`)
+    console.log('distance in model',distance)
+    console.log(`result count in model : ${resultCount}`)
     const unitValue = 1000;
     const foundPets = this.aggregate([
         {

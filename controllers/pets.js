@@ -103,7 +103,6 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
         distance = 20000;
     distanceValues = [5,10,25,50,100,20000]
 
-    console.log(req.query);
     const filter ={};
     petList.push("");       //for when either primary or secondary breeds empty
     if(req.query.primaryBreed)
@@ -151,6 +150,7 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
         req.query.paginationOffset = '0';
     }
     let paginationOffset = parseInt(req.query.paginationOffset);
+    console.log(`PAGINATION OFFSET ${paginationOffset}`)
     const resultOffset = paginationOffset*resultCount;              //number of pets offset while moving through pagination
     paginationOffset = paginationOffset.toString();
     //if conditional for when longitude and latitude becomes NaN because browser doesn't set location values fast enough
@@ -160,7 +160,7 @@ module.exports.searchPet = catchAsync(async(req,res,next) =>{
     
     //longitude, latitude, distance, resultCount, filterParameters, paginationOffset
     const pets = await Pet.findByDistance(longitude,latitude,distance, resultCount, filter,resultOffset);
-    console.log(pets);
+    //console.log(pets);
     let totalPetCount;
     try{
         totalPetCount = pets[0].totalCount;
