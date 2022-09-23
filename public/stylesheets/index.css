@@ -527,12 +527,59 @@ body {
   height: auto;
 }
 
-.petListImage {
-  height: 370px;
-  width: 400px;
+#petcards {
+  width: 100%;
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 340px);
+  grid-template-rows: 1fr;
+  grid-auto-rows: 1fr;
+  grid-row-gap: 1em;
+  grid-auto-flow: row;
+  place-items: start center;
+  place-content: space-evenly;
+  font-size: 0.95rem;
+}
+#petcards .card {
+  border-radius: 5%;
+  width: 320px;
+}
+#petcards .card .card-image-container {
+  width: 100%;
+  height: 233px;
+}
+#petcards .card .card-image-container img {
+  width: 320px;
+  height: 233px;
   object-fit: cover;
 }
+#petcards .card .card-body {
+  padding-top: 0.4em;
+  padding-bottom: 0em;
+}
+#petcards .card .card-body .card-title {
+  font-size: 1.5rem;
+}
+#petcards .card .card-body h5 {
+  margin-bottom: 0em;
+}
+#petcards .card ul li {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
 
+@media screen and (max-width: 330px) {
+  #petcards .card {
+    width: 270px;
+  }
+  #petcards .card .card-image-container {
+    height: 196px;
+  }
+  #petcards .card .card-image-container img {
+    width: 270px;
+    height: 196px;
+  }
+}
 /* index.scss by forwards all files from components folder. index.scss is by default and no need to specify during @use */
 *, *::before, *::after {
   box-sizing: border-box;

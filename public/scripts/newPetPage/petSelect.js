@@ -1,6 +1,6 @@
 species=['dog','cat']
 
-petSelector = document.querySelector('#petSelect')
+petSelector = document.querySelector('#petSelect2')
 formTitle = document.querySelector('#formTitle')
 form = document.querySelector('#petForm')
 defaultSelect = document.querySelector('#defaultSelect')
@@ -26,3 +26,5 @@ if(pet!=='pet'){
 }
 if(petSelector.value)
     form.classList.toggle('hidden')                         //unhides main form
+
+console.log('working')

@@ -1,5 +1,57 @@
-.petListImage{
-    height: 370px;
-    width: 400px;
-    object-fit: cover;
+@use './variables' as *;
+
+#petcards{
+        width:100%;
+        margin-top: 1em;
+        display:grid;
+        grid-template-columns: repeat(auto-fill,340px);
+        grid-template-rows: 1fr;
+        grid-auto-rows: 1fr;
+        grid-row-gap: 1em;
+        grid-auto-flow: row;
+        place-items:start center;
+        place-content:space-evenly;
+        font-size: 0.95rem;
+    .card{
+        border-radius: 5%;
+        width: 320px;
+        .card-image-container{
+            width:100%;
+            height:233px;
+            img{
+                width:320px;
+                height:233px;
+                object-fit: cover;
+            }
+        }
+        .card-body{
+            padding-top:0.4em;
+            padding-bottom:0em;
+            .card-title{
+                font-size: 1.5rem;
+            }
+            h5{
+                margin-bottom:0em;
+            }
+        }
+        ul li{
+            padding-top: 0.3em;
+            padding-bottom: 0.3em;
+        }
+    }
+}
+
+@media screen and(max-width: 330px){
+    #petcards{
+        .card{
+            width: 270px;
+            .card-image-container{
+                height:196px;
+                img{
+                    width:270px;
+                    height:196px;
+                }
+            }
+        }
+    }
 }
