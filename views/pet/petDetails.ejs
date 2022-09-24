@@ -2,7 +2,7 @@
 
 <div class="container d-flex align-items-center justify-content-center" style="min-height:100vh;">
     <div class="row d-flex justify-content-center">
-            <div class="card col-xs-10 col-md-5 mt-3 mb-3 ml-2 mr-2">
+            <div class="card col-xs-10 col-md-5 mt-3 mb-3 ml-2 mr-2" id="individual-pet-card">
 
                 <img class="expand-image"  src="<%= pet.image.url%>" class="d-block w-100" alt="">
 
@@ -29,7 +29,7 @@
                     <%= pet.description %> 
                 </div>
                     <div class="card-body">
-                        <h5><b><%= `${pet.name} is`%></b></h5>
+                        <h5><b><span><%= pet.name[0].toUpperCase()+pet.name.slice(1) %> is</span></b></h5>
                         <%= pet.attributes.spayed_neutered? pet.gender==='M'? 'Neutered, ':'Spayed, ' : '' %>
                         <%= pet.attributes.house_trained? 'House Trained, ':''%>
                         <%= pet.attributes.declawed? 'Declawed, ':''  %>
@@ -42,9 +42,6 @@
                         <%= pet.medicalIssues %> 
                     </div>
                 <% } %>  
-                <div class="card-body">
-                    <button type="button" id="returnToSearchButton"  class="btn btn-primary btn-lg">Return</button>
-                </div>
               </div>
     </div>
 </div>

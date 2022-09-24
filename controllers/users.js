@@ -131,11 +131,17 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
     addrChange = false              // to log if address was changed
     contactChange = false           //to log if contact was changed
     nameChange = false              //to log if name was changed
-    let location
+    let location = user.location;
 
     if(user.firstName!==req.body.name.first || user.lastName!==req.body.name.last){
         nameChange = true;
     }
+
+    // to check if contact was updated
+    if(parseInt(req.body.phone)!==user.contact.phone || req.body.email!==user.contact.email){
+        contactChange = true;
+    }
+        
     
     req.body.address.zip = parseInt(req.body.address.zip);
     
@@ -162,7 +168,6 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
             queryString = '';
             const addr = req.body.address;
             queryString = [addr.addrline2, addr.zip.toString(), addr.city, addr.state].join(' ');  //generate query string to send to mapbox
-            console.log(queryString,"in post request");
             const geoData = await geocoder.forwardGeocode({
                 query: queryString,
                 countries:['IN'],                                                       // ISO 639-1 language code of india is IN
@@ -178,11 +183,7 @@ module.exports.updateUser = catchAsync(async (req,res) =>{
         address:req.body.address
     }
 
-    // to check if contact was updated
-    if(parseInt(req.body.phone)!==user.contact.phone || req.body.email!==user.contact.email){
-        contactChange = false;
-    }
-    
+
     if(addrChange || contactChange){
         for( let i of user.pets){ 
             id = i.valueOf();

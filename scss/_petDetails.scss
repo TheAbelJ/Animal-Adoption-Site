@@ -2,3 +2,18 @@
     width: 100%;
     height: auto;
 }
+
+#individual-pet-card{
+    .card-title{
+        font-weight:600;
+        font-size:1.7rem;
+        margin-bottom: 0em;
+    }
+    .card-body ~ .card-body{
+        padding-top: 0.4em;
+        padding-bottom: 0.5em;
+        h5{
+            margin-bottom: 0.1em;
+        }
+    }
+}

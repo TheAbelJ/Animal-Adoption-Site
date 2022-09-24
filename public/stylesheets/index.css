@@ -551,6 +551,19 @@ body {
   height: auto;
 }
 
+#individual-pet-card .card-title {
+  font-weight: 600;
+  font-size: 1.7rem;
+  margin-bottom: 0em;
+}
+#individual-pet-card .card-body ~ .card-body {
+  padding-top: 0.4em;
+  padding-bottom: 0.5em;
+}
+#individual-pet-card .card-body ~ .card-body h5 {
+  margin-bottom: 0.1em;
+}
+
 #petcards {
   width: 100%;
   margin-top: 1em;
