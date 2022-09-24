@@ -4,6 +4,7 @@ const selectedSpecies = document.querySelector('#selectedSpecies');
 const distance = document.querySelector('#distance');
 const hiddenDistance = document.querySelector('#hiddenDistance');
 const resetPureBredButton = document.querySelector('#resetPureBred');
+const resetSearchFormButton = document.querySelector('#resetSearchFormButton');
 const hiddenRadioSelect = document.querySelector('#hiddenRadioSelect')
 const distanceSelect = document.querySelectorAll('.distance-select');
 const speciesSelect = document.querySelectorAll('.species-select');
@@ -116,7 +117,7 @@ const resetPureBred = function(){
     PureBredRadio.forEach(radio => radio.checked = false);
 }
 
-resetPureBredButton.addEventListener('click',resetPureBred);
+resetPureBredButton.addEventListener('click',resetPureBred);  
 
 //function returns index of nth occurrence of character
 const indexOfNth = (string, char, nth, fromIndex = 0) => {
@@ -186,3 +187,13 @@ petSearchForm.addEventListener('submit',()=>{
         formValueChangeCheck.value = true
     
 })
+
+//Reset form button
+const resetForm = function(){
+    resetPureBredButton.click();
+    prevFormValues.forEach((formElement)=>{
+        formElement.value = '';
+    })
+}
+
+resetSearchFormButton.addEventListener('click',resetForm); 

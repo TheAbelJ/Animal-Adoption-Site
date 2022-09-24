@@ -123,3 +123,21 @@
 .hideNavElement{    //to hide profile/register/login/logout button selectively
     display:none;
 }
+
+@media screen and (max-width:600px){
+      
+    #navbar{     
+        .nav-links{
+            width:70%;
+        }
+    }
+}
+
+@media screen and (max-width:350px){
+      
+    #navbar{     
+        .nav-links{
+            width:85%;
+        }
+    }
+}

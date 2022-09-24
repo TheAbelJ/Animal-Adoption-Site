@@ -140,6 +140,7 @@
                     </div>
     
                     <div class="row d-flex justify-content-center">
+                        <button type="button" id="resetSearchFormButton" class="btn btn-secondary m-3 col-4">Reset</button>
                         <button type="submit" id="searchButton2" class="btn btn-success m-3 col-4">Search</button>
                     </div>
                 </form>
@@ -173,7 +174,12 @@
                     </div>
                     <% } %>
             </div>
-            <div class="pagination-navigation">
+            <% if (pets.length === 0){ %>
+                <div>
+                    <h2>No pets found</h2>
+                </div>
+            <% } %> 
+            <div class="pagination-navigation <%= pets.length === 0? 'hidden':'' %> ">
                 <nav aria-label="pet results pages">
                     <ul class="pagination">
                       <li class="page-item" id="goToPreviousPage">
